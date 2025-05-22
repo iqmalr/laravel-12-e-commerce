@@ -17,7 +17,7 @@ return new class extends Migration
             $table->string('name');
             $table->timestamps();
         });
-        DB::table('roles')->insert([
+        DB::table('m_roles')->insert([
             ['name' => 'SuperAdmin'],
             ['name' => 'Admin'],
             ['name' => 'Customer']

@@ -19,11 +19,11 @@ return new class extends Migration
             $table->uuid('updated_by')->nullable();
             $table->foreign('created_by')
                 ->references('id')
-                ->on('users')
+                ->on('m_users')
                 ->nullOnDelete();
             $table->foreign('updated_by')
                 ->references('id')
-                ->on('users')
+                ->on('m_users')
                 ->nullOnDelete();
             $table->timestamps();
         });
