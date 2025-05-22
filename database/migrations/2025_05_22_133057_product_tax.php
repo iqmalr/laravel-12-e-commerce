@@ -14,9 +14,9 @@ return new class extends Migration
         Schema::create('t_product_taxes', function (Blueprint $table) {
             $table->uuid('id');
             $table->uuid('product_id');
-            $table->foreign('product_id')->references('id')->on('products');
+            $table->foreign('product_id')->references('id')->on('m_products');
             $table->string('tax_id');
-            $table->foreign('tax_id')->references('id')->on('taxes');
+            $table->foreign('tax_id')->references('id')->on('m_taxes');
             $table->timestamps();
         });
     }
