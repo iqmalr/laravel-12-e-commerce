@@ -15,10 +15,10 @@ class UserSeeder extends Seeder
      */
     public function run()
     {
-        DB::table('m_users')->truncate();
+        DB::table('users')->truncate();
         DB::table('m_customers')->truncate();
         $superAdminId = Str::uuid();
-        DB::table('m_users')->insert([
+        DB::table('users')->insert([
             'id' => $superAdminId,
             'name' => 'Super Admin',
             'username' => 'superadmin',
@@ -31,7 +31,7 @@ class UserSeeder extends Seeder
         ]);
 
         $staffId = Str::uuid();
-        DB::table('m_users')->insert([
+        DB::table('users')->insert([
             'id' => $staffId,
             'name' => 'Staff Member',
             'username' => 'staff',
@@ -44,7 +44,7 @@ class UserSeeder extends Seeder
         ]);
 
         $customer1Id = Str::uuid();
-        DB::table('m_users')->insert([
+        DB::table('users')->insert([
             'id' => $customer1Id,
             'name' => 'Customer One',
             'username' => 'customer1',
@@ -57,7 +57,7 @@ class UserSeeder extends Seeder
         ]);
 
         $customer2Id = Str::uuid();
-        DB::table('m_users')->insert([
+        DB::table('users')->insert([
             'id' => $customer2Id,
             'name' => 'Customer Two',
             'username' => 'customer2',

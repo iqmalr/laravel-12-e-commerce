@@ -21,7 +21,7 @@ return new class extends Migration
             $table->timestamps();
 
             $table->foreign('customer_id')->references('id')->on('m_customers');
-            $table->foreign('staff_id')->references('id')->on('m_users');
+            $table->foreign('staff_id')->references('id')->on('users');
             $table->foreign('payment_method_id')->references('id')->on('m_payment_methods');
             $table->foreign('transaction_status_id')->references('id')->on('t_transaction_statuses');
         });

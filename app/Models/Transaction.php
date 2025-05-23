@@ -9,7 +9,7 @@ use Illuminate\Database\Eloquent\Model;
 class Transaction extends Model
 {
     use HasFactory, HasUuids;
-
+    protected $table = 't_transactions';
     protected $fillable = [
         'customer_id',
         'staff_id',

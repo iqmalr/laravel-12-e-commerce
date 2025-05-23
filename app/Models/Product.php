@@ -9,6 +9,7 @@ use Illuminate\Database\Eloquent\Model;
 class Product extends Model
 {
     use HasFactory, HasUuids;
+    protected $table = 'm_products';
     protected $primaryKey = 'id';
 
     protected $keyType = 'string';

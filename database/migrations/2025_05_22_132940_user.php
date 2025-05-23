@@ -11,7 +11,7 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::table('m_users', function (Blueprint $table) {
+        Schema::table('users', function (Blueprint $table) {
             $table->string('username')->unique()->after('name');
             $table->foreignId('role_id')->nullable()->constrained('m_roles')->after('password');
             $table->timestamp('deleted_at')->nullable()->after('updated_at');
@@ -24,7 +24,7 @@ return new class extends Migration
      */
     public function down(): void
     {
-        // Schema::table('m_users', function (Blueprint $table) {
+        // Schema::table('users', function (Blueprint $table) {
         //     $table->dropColumn(['username', 'role_id', 'deleted_at', 'restored_at']);
         //     $table->dropForeign(['role_id']);
         // });

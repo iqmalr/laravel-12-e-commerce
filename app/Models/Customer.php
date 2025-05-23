@@ -9,7 +9,7 @@ use Illuminate\Database\Eloquent\Model;
 class Customer extends Model
 {
     use HasFactory, HasUuids;
-
+    protected $table = 'm_customers';
     protected $primaryKey = 'id';
     protected $keyType = 'string';
     public $incrementing = false;
