@@ -60,14 +60,10 @@ class LoginRequest extends FormRequest
     // }
     public function authenticate(): void
     {
-        logger('⏳ Starting authentication process');
         $this->ensureIsNotRateLimited();
 
-        logger('🔑 Attempting authentication for email: ' . $this->email);
         if (! Auth::attempt($this->only('email', 'password'), $this->boolean('remember'))) {
-            logger('❌ Authentication failed for email: ' . $this->email);
             RateLimiter::hit($this->throttleKey());
-            logger('⚠️ Rate limited incremented for key: ' . $this->throttleKey());
 
             throw ValidationException::withMessages([
                 'email' => __('auth.failed'),
@@ -75,23 +71,11 @@ class LoginRequest extends FormRequest
         }
 
         $user = Auth::user();
-        logger('✅ User authenticated: ID ' . $user->id . ' - ' . $user->email);
-        logger('🔍 User Object Dump:', [
-            'ID' => $user->id,
-            'Class' => get_class($user),
-            'Attributes' => $user,
-            'Raw Data' => $user
-        ]);
 
         $allowedRoles = ['Admin', 'SuperAdmin'];
         $userRole = optional($user->role)->name;
-        logger('🔍 Checking user role: ' . ($userRole ?? 'No role assigned'));
-
         if (!in_array($userRole, $allowedRoles)) {
-            logger('🚫 Access denied for role: ' . ($userRole ?? 'null') .
-                ' - Allowed roles: ' . implode(', ', $allowedRoles));
             Auth::logout();
-            logger('👋 User logged out due to invalid role');
 
             throw ValidationException::withMessages([
                 'email' => 'Anda tidak memiliki akses untuk login.',
@@ -99,8 +83,6 @@ class LoginRequest extends FormRequest
         }
 
         RateLimiter::clear($this->throttleKey());
-        logger('♻️ Rate limiter cleared for key: ' . $this->throttleKey());
-        logger('🎉 Authentication successful for user ID: ' . $user->id);
     }
 
     /**

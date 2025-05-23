@@ -29,12 +29,8 @@ class AuthenticatedSessionController extends Controller
      */
     public function store(LoginRequest $request): RedirectResponse
     {
-        logger('📥 Login attempt with email: ' . $request->email);
         $request->authenticate();
-        logger('✅ Authenticated: ' . Auth::user()?->email);
         $request->session()->regenerate();
-
-        //    Log::debug('➡️ Redirecting to: ' . $redirect->getTargetUrl());
         return redirect()->intended(route('dashboard', absolute: false));
     }
 
