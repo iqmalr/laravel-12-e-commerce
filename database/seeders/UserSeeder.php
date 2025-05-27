@@ -42,6 +42,18 @@ class UserSeeder extends Seeder
             'created_at' => now(),
             'updated_at' => now(),
         ]);
+        $staffId2 = Str::uuid();
+        DB::table('users')->insert([
+            'id' => $staffId2,
+            'name' => 'Staff Member 2',
+            'username' => 'staff2',
+            'email' => 'staff2@example.com',
+            'email_verified_at' => now(),
+            'password' => Hash::make('password'),
+            'role_id' => 2,
+            'created_at' => now(),
+            'updated_at' => now(),
+        ]);
 
         $customer1Id = Str::uuid();
         DB::table('users')->insert([
