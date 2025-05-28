@@ -9,15 +9,16 @@ import { Label } from '@/components/ui/label';
 import { Separator } from '@/components/ui/separator';
 import AppLayout from '@/layouts/app-layout';
 import { type BreadcrumbItem } from '@/types';
+import { Tax } from '@/types/tax';
 import { Head, Link, useForm } from '@inertiajs/react';
 import { AlertCircle, ArrowLeft, Receipt, Save, Tag } from 'lucide-react';
 
-interface Tax {
-    id: number;
-    name: string;
-    percentage: number;
-    type: string;
-}
+// interface Tax {
+//     id: number;
+//     name: string;
+//     percentage: number;
+//     type: string;
+// }
 
 interface Props {
     allTaxes: Tax[];
@@ -33,7 +34,7 @@ export default function CreateProduct({ allTaxes }: Props) {
         name: '',
         price: '',
         description: '',
-        taxes: [] as number[],
+        taxes: [] as string[],
     });
 
     const handleSubmit = (e: React.FormEvent) => {
@@ -41,7 +42,7 @@ export default function CreateProduct({ allTaxes }: Props) {
         post('/product');
     };
 
-    const handleTaxChange = (taxId: number, checked: boolean) => {
+    const handleTaxChange = (taxId: string, checked: boolean) => {
         if (checked) {
             setData('taxes', [...data.taxes, taxId]);
         } else {
@@ -54,10 +55,9 @@ export default function CreateProduct({ allTaxes }: Props) {
 
     const hasErrors = Object.keys(errors).length > 0;
 
-    // Calculate total tax rate for preview
     const selectedTaxes = allTaxes.filter((tax) => data.taxes.includes(tax.id));
     const totalTaxRate = selectedTaxes.reduce((sum, tax) => sum + tax.percentage, 0);
-    const basePrice = parseFloat(data.price) || 0;
+    const basePrice = parseInt(data.price) || 0;
     const taxAmount = (basePrice * totalTaxRate) / 100;
     const totalPrice = basePrice + taxAmount;
 
@@ -111,7 +111,7 @@ export default function CreateProduct({ allTaxes }: Props) {
                                                 id="name"
                                                 value={data.name}
                                                 onChange={(e) => setData('name', e.target.value)}
-                                                placeholder="Contoh: Kopi Arabika"
+                                                placeholder="Contoh: Mac Book Pro"
                                                 className={errors.name ? 'border-red-500 focus-visible:ring-red-500' : ''}
                                             />
                                             {errors.name && (
@@ -132,7 +132,7 @@ export default function CreateProduct({ allTaxes }: Props) {
                                                 value={data.price}
                                                 onChange={(e) => setData('price', e.target.value)}
                                                 placeholder="Contoh: 25000"
-                                                className={errors.price ? 'border-red-500 focus-visible:ring-red-500' : ''}
+                                                className={`[appearance:textfield] [&::-webkit-inner-spin-button]:appearance-none [&::-webkit-outer-spin-button]:appearance-none ${errors.price ? 'border-red-500 focus-visible:ring-red-500' : ''}`}
                                             />
                                             {errors.price && (
                                                 <p className="flex items-center gap-1 text-xs text-red-500">

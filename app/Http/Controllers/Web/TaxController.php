@@ -26,19 +26,14 @@ class TaxController extends Controller
         $validated = $request->validate([
             'name' => 'required|string|max:255',
             'percentage' => 'required|integer|min:0|max:100',
-            // 'valid_from' => 'required|date',
-            // 'valid_to' => 'nullable|date|after_or_equal:valid_from',
         ]);
 
         Tax::create([
             'name' => $validated['name'],
             'percentage' => $validated['percentage'],
-            // 'valid_from' => $validated['valid_from'],
-            // 'valid_to' => $validated['valid_to'],
         ]);
 
         return redirect()->route('tax.index')->with('success', 'Tax created successfully.');
-        // return redirect('/tax')->with('success', 'Tax created successfully.');
     }
 
     public function edit($id)

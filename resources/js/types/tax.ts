@@ -4,4 +4,5 @@ export interface Tax {
     percentage: number;
     description?: string;
     deleted_at?: string | null;
+    type: string;
 }

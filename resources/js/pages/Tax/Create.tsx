@@ -25,12 +25,11 @@ const breadcrumbs: BreadcrumbItem[] = [
 export default function CreateTax() {
     const { data, setData, post, processing, errors } = useForm({
         name: '',
-        percentage: 0,
+        percentage: '',
     });
 
     const handleSubmit = (e: React.FormEvent) => {
         e.preventDefault();
-        console.log(data);
         post('/tax');
     };
 
@@ -106,13 +105,8 @@ export default function CreateTax() {
                                                 type="number"
                                                 placeholder="Contoh: 10"
                                                 value={data.percentage}
-                                                onChange={(e) => {
-                                                    const value = e.target.value.replace(/[^0-9.]/g, '');
-                                                    setData('percentage', Number.parseInt(value) || 0);
-                                                }}
-                                                // value={data.rate}
-                                                // onChange={(e) => setData('rate', e.target.value)}
-                                                className={errors.percentage ? 'border-red-500 focus-visible:ring-red-500' : ''}
+                                                onChange={(e) => setData('percentage', e.target.value)}
+                                                className={`[appearance:textfield] [&::-webkit-inner-spin-button]:appearance-none [&::-webkit-outer-spin-button]:appearance-none ${errors.percentage ? 'border-red-500 focus-visible:ring-red-500' : ''}`}
                                             />
                                             {errors.percentage && (
                                                 <p className="flex items-center gap-1 text-xs text-red-500">

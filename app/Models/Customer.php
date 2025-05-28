@@ -15,7 +15,6 @@ class Customer extends Model
     public $incrementing = false;
 
     protected $fillable = [
-        // 'id',
         'birthdate',
         'birthplace',
         'created_by',
