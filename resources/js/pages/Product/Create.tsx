@@ -1,5 +1,3 @@
-// resources/js/Pages/Product/Create.tsx
-
 import { Alert, AlertDescription } from '@/components/ui/alert';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
@@ -11,14 +9,8 @@ import AppLayout from '@/layouts/app-layout';
 import { type BreadcrumbItem } from '@/types';
 import { Tax } from '@/types/tax';
 import { Head, Link, useForm } from '@inertiajs/react';
-import { AlertCircle, ArrowLeft, Receipt, Save, Tag } from 'lucide-react';
-
-// interface Tax {
-//     id: number;
-//     name: string;
-//     percentage: number;
-//     type: string;
-// }
+import { AlertCircle, ArrowLeft, ImagePlus, Receipt, Save, Tag } from 'lucide-react';
+import { useState } from 'react';
 
 interface Props {
     allTaxes: Tax[];
@@ -35,11 +27,29 @@ export default function CreateProduct({ allTaxes }: Props) {
         price: '',
         description: '',
         taxes: [] as string[],
+        image: null as File | null,
     });
+    const [imagePreview, setImagePreview] = useState<string | null>(null);
+    const handleImageChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+        const file = e.target.files?.[0] || null;
+        setData('image', file);
 
+        if (file) {
+            const reader = new FileReader();
+            reader.onload = (e) => {
+                setImagePreview(e.target?.result as string);
+            };
+            reader.readAsDataURL(file);
+        } else {
+            setImagePreview(null);
+        }
+    };
     const handleSubmit = (e: React.FormEvent) => {
+        console.log(data);
         e.preventDefault();
-        post('/product');
+        post(route('product.store'), {
+            forceFormData: true,
+        });
     };
 
     const handleTaxChange = (taxId: string, checked: boolean) => {
@@ -101,7 +111,7 @@ export default function CreateProduct({ allTaxes }: Props) {
                                 <CardDescription>Lengkapi informasi produk untuk ditampilkan di katalog</CardDescription>
                             </CardHeader>
                             <CardContent>
-                                <form onSubmit={handleSubmit} className="space-y-6">
+                                <form onSubmit={handleSubmit} className="space-y-6" encType="multipart/form-data">
                                     <div className="space-y-4">
                                         <div className="space-y-2">
                                             <Label htmlFor="name">
@@ -162,7 +172,6 @@ export default function CreateProduct({ allTaxes }: Props) {
 
                                     <Separator />
 
-                                    {/* Tax Selection Section */}
                                     <div className="space-y-4">
                                         <div className="flex items-center gap-2">
                                             <Receipt className="h-5 w-5" />
@@ -206,6 +215,37 @@ export default function CreateProduct({ allTaxes }: Props) {
                                     </div>
 
                                     <Separator />
+                                    <div className="space-y-2">
+                                        <Label htmlFor="image">Product Image</Label>
+                                        <div className="grid w-auto gap-1.5 pt-4">
+                                            <div className="flex w-auto items-center justify-center">
+                                                <label
+                                                    htmlFor="image"
+                                                    className="flex w-auto cursor-pointer flex-col items-center justify-center rounded-lg border-2 border-dashed bg-gray-50 hover:bg-gray-100 dark:border-gray-600 dark:bg-gray-700 dark:hover:border-gray-500 dark:hover:bg-gray-800"
+                                                >
+                                                    {imagePreview ? (
+                                                        <div className="flex items-center justify-center px-6 py-5">
+                                                            <img
+                                                                src={imagePreview}
+                                                                alt="Image preview"
+                                                                className="h-full rounded-lg object-contain"
+                                                            />
+                                                        </div>
+                                                    ) : (
+                                                        <div className="flex flex-col items-center justify-center pt-5 pb-6">
+                                                            <ImagePlus className="mb-4 h-8 w-8 text-gray-500 dark:text-gray-400" />
+                                                            <p className="mb-2 text-sm text-gray-500 dark:text-gray-400">
+                                                                <span className="font-semibold">Click to upload</span> or drag and drop
+                                                            </p>
+                                                            <p className="text-xs text-gray-500 dark:text-gray-400">PNG, JPG, GIF (MAX. 2MB)</p>
+                                                        </div>
+                                                    )}
+                                                </label>
+                                                <Input id="image" type="file" accept="image/*" className="hidden" onChange={handleImageChange} />
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <Separator />
 
                                     <div className="flex items-center gap-3 pt-4">
                                         <Button type="submit" disabled={processing} size="lg" className="min-w-[120px]">
@@ -232,7 +272,6 @@ export default function CreateProduct({ allTaxes }: Props) {
                         </Card>
                     </div>
 
-                    {/* Price Preview Sidebar */}
                     <div className="lg:col-span-1">
                         <Card className="sticky top-6">
                             <CardHeader>

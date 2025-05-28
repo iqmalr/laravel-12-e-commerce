@@ -19,26 +19,13 @@ class Product extends Model
 
     protected $fillable = [
         'name',
+        'description',
         'price',
         'deleted_at',
         'restored_at',
+        'image_url',
+        'image_public_id'
     ];
-
-    protected $casts = [
-        'price' => 'integer',
-        'deleted_at' => 'datetime',
-        'restored_at' => 'datetime',
-    ];
-
-    public function scopeActive($query)
-    {
-        return $query->whereNull('deleted_at');
-    }
-
-    public function scopeDeleted($query)
-    {
-        return $query->whereNotNull('deleted_at');
-    }
 
     public function taxes()
     {

@@ -14,9 +14,12 @@ return new class extends Migration
         Schema::create('m_products', function (Blueprint $table) {
             $table->uuid('id')->primary();
             $table->string('name');
+            $table->text('description');
             $table->bigInteger('price');
             $table->timestamp('deleted_at')->nullable();
             $table->timestamp('restored_at')->nullable();
+            $table->string('image_url');
+            $table->string('image_public_id');
             $table->timestamps();
         });
     }

@@ -15,7 +15,6 @@ class StaffController extends Controller
      */
     public function index()
     {
-        // $staff = User::where('role_id', 2)->get();
         $staff = User::withTrashed()->where('role_id', 2)->get();
         return Inertia::render('Staff/Index', compact('staff'));
     }
