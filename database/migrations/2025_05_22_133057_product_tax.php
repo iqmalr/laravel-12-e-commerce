@@ -12,12 +12,15 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('t_product_taxes', function (Blueprint $table) {
-            $table->uuid('id');
             $table->uuid('product_id');
             $table->foreign('product_id')->references('id')->on('m_products');
-            $table->string('tax_id');
+
+            $table->uuid('tax_id');
             $table->foreign('tax_id')->references('id')->on('m_taxes');
+
             $table->timestamps();
+
+            $table->primary(['product_id', 'tax_id']);
         });
     }
 

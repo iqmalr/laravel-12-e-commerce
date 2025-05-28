@@ -5,7 +5,7 @@ import { Sidebar, SidebarContent, SidebarFooter, SidebarHeader, SidebarMenu, Sid
 import { type NavItem } from '@/types';
 import { PageProps } from '@/types/page-props';
 import { Link, usePage } from '@inertiajs/react';
-import { BookOpen, Folder, LayoutGrid, UserRound } from 'lucide-react';
+import { BookOpen, Folder, LayoutGrid, Package, Percent, UserRound } from 'lucide-react';
 import AppLogo from './app-logo';
 
 // const mainNavItems: NavItem[] = [
@@ -52,6 +52,16 @@ export function AppSidebar() {
                   },
               ]
             : []),
+        {
+            title: 'Product',
+            href: '/product',
+            icon: Package,
+        },
+        {
+            title: 'Tax',
+            href: '/tax',
+            icon: Percent,
+        },
     ];
     console.log(user);
     return (

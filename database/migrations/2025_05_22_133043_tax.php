@@ -12,11 +12,13 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('m_taxes', function (Blueprint $table) {
-            $table->string('id')->primary();
+            $table->uuid('id')->primary();
             $table->string('name');
             $table->integer('percentage');
-            $table->timestamp('valid_from')->useCurrent();
-            $table->timestamp('valid_to')->nullable();
+            // $table->timestamp('valid_from')->useCurrent();
+            // $table->timestamp('valid_to')->nullable();
+            $table->timestamp('deleted_at')->nullable();
+            $table->timestamp('restored_at')->nullable();
             $table->timestamps();
         });
     }

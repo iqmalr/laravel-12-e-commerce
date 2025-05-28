@@ -2,10 +2,16 @@
 
 namespace App\Models;
 
+use Illuminate\Database\Eloquent\Concerns\HasUuids;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\SoftDeletes;
+use Illuminate\Notifications\Notifiable;
 
 class Tax extends Model
 {
+    use HasFactory, HasUuids, SoftDeletes, Notifiable;
+
     protected $table = 'm_taxes';
     protected $primaryKey = 'id';
     protected $keyType = 'string';
@@ -14,34 +20,12 @@ class Tax extends Model
 
     protected $fillable = [
         'name',
-        'percentage',
-        'valid_from',
-        'valid_to'
+        'percentage'
     ];
-
-    protected $casts = [
-        'percentage' => 'integer',
-        'valid_from' => 'datetime',
-        'valid_to' => 'datetime',
-    ];
-
-    public function scopeActive($query)
-    {
-        return $query->where(function ($query) {
-            $query->whereNull('valid_to')
-                ->orWhere('valid_to', '>=', now());
-        });
-    }
-
-    public function scopeDeleted($query)
-    {
-        return $query->whereNotNull('valid_to')
-            ->where('valid_to', '<=', now());
-    }
 
     public function products()
     {
-        return $this->belongsToMany(Product::class, 'product_taxes', 'tax_id', 'product_id')
+        return $this->belongsToMany(Product::class, 't_product_taxes', 'tax_id', 'product_id')
             ->withTimestamps();
     }
 }
