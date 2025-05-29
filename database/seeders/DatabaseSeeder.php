@@ -21,15 +21,15 @@ class DatabaseSeeder extends Seeder
         $this->call([
             RoleSeeder::class,
             UserSeeder::class,
-            // ProductSeeder::class,
-            // PremiumProductSeeder::class,
-            // TaxSeeder::class,
-            // ProductTaxSeeder::class,
-            // PaymentMethodsSeeder::class,
-            // TransactionStatusSeeder::class,
-            // CustomerSeeder::class,
-            // TransactionSeeder::class,
-            // TransactionItemSeeder::class
+            ProductSeeder::class,
+            PremiumProductSeeder::class,
+            TaxSeeder::class,
+            ProductTaxSeeder::class,
+            PaymentMethodsSeeder::class,
+            TransactionStatusSeeder::class,
+            CustomerSeeder::class,
+            TransactionSeeder::class,
+            TransactionItemSeeder::class
         ]);
     }
 }
