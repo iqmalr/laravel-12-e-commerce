@@ -62,13 +62,13 @@ class UserFactory extends Factory
             'email' => 'admin@example.com'
         ]);
     }
-    public function customer()
-    {
-        return $this->state([
-            'role_id' => 3,
-            'name' => 'Customer User',
-            'username' => 'customer',
-            'email' => 'customer@example.com'
-        ]);
-    }
+    // public function customer()
+    // {
+    //     return $this->state([
+    //         'role_id' => 3,
+    //         'name' => 'Customer User',
+    //         'username' => 'customer',
+    //         'email' => 'customer@example.com'
+    //     ]);
+    // }
 }

@@ -37,27 +37,6 @@ class LoginRequest extends FormRequest
      *
      * @throws \Illuminate\Validation\ValidationException
      */
-    // public function authenticate(): void
-    // {
-    //     $this->ensureIsNotRateLimited();
-
-    //     if (! Auth::attempt($this->only('email', 'password'), $this->boolean('remember'))) {
-    //         RateLimiter::hit($this->throttleKey());
-
-    //         throw ValidationException::withMessages([
-    //             'email' => __('auth.failed'),
-    //         ]);
-    //     }
-    //     $user = Auth::user();
-    //     $allowedRoles = ['Admin', 'SuperAdmin'];
-    //     if (!in_array(optional($user->role)->name, $allowedRoles)) {
-    //         Auth::logout();
-    //         throw ValidationException::withMessages([
-    //             'email' => 'Anda tidak memiliki akses untuk login.',
-    //         ]);
-    //     }
-    //     RateLimiter::clear($this->throttleKey());
-    // }
     public function authenticate(): void
     {
         $this->ensureIsNotRateLimited();
