@@ -45,7 +45,6 @@ export default function CreateProduct({ allTaxes }: Props) {
         }
     };
     const handleSubmit = (e: React.FormEvent) => {
-        console.log(data);
         e.preventDefault();
         post(route('product.store'), {
             forceFormData: true,

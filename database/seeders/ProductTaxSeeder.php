@@ -35,7 +35,6 @@ class ProductTaxSeeder extends Seeder
         $regularProducts = Product::where('name', 'not like', '%Premium%')->get();
         foreach ($regularProducts as $product) {
             $taxData[] = [
-                // 'id' => Str::uuid(),
                 'product_id' => $product->id,
                 'tax_id' => $ppn11->id,
                 'created_at' => $now,
@@ -48,14 +47,12 @@ class ProductTaxSeeder extends Seeder
             $ppnbm = fake()->randomElement([$ppnbm10, $ppnbm20]);
 
             $taxData[] = [
-                // 'id' => Str::uuid(),
                 'product_id' => $product->id,
                 'tax_id' => $ppn11->id,
                 'created_at' => $now,
                 'updated_at' => $now,
             ];
             $taxData[] = [
-                // 'id' => Str::uuid(),
                 'product_id' => $product->id,
                 'tax_id' => $ppnbm->id,
                 'created_at' => $now,

@@ -54,52 +54,5 @@ class UserSeeder extends Seeder
             'created_at' => now(),
             'updated_at' => now(),
         ]);
-
-        // $customer1Id = Str::uuid();
-        // DB::table('users')->insert([
-        //     'id' => $customer1Id,
-        //     'name' => 'Customer One',
-        //     'username' => 'customer1',
-        //     'email' => 'customer1@example.com',
-        //     'email_verified_at' => now(),
-        //     'password' => Hash::make('password'),
-        //     'role_id' => 3,
-        //     'created_at' => now(),
-        //     'updated_at' => now(),
-        // ]);
-
-        // $customer2Id = Str::uuid();
-        // DB::table('users')->insert([
-        //     'id' => $customer2Id,
-        //     'name' => 'Customer Two',
-        //     'username' => 'customer2',
-        //     'email' => 'customer2@example.com',
-        //     'email_verified_at' => now(),
-        //     'password' => Hash::make('password'),
-        //     'role_id' => 3,
-        //     'created_at' => now(),
-        //     'updated_at' => now(),
-        // ]);
-
-        // DB::table('m_customers')->insert([
-        //     [
-        //         'id' => Str::uuid(),
-        //         'birthdate' => '1990-01-15',
-        //         'birthplace' => 'Jakarta',
-        //         'created_by' => $superAdminId,
-        //         'updated_by' => $superAdminId,
-        //         'created_at' => now(),
-        //         'updated_at' => now(),
-        //     ],
-        //     [
-        //         'id' => Str::uuid(),
-        //         'birthdate' => '1985-05-20',
-        //         'birthplace' => 'Bandung',
-        //         'created_by' => $superAdminId,
-        //         'updated_by' => $superAdminId,
-        //         'created_at' => now(),
-        //         'updated_at' => now(),
-        //     ]
-        // ]);
     }
 }

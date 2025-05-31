@@ -18,12 +18,10 @@ class PremiumProductFactory extends Factory
 
     public function definition(): array
     {
-        $name = $this->generateLaptopName();
         $multiplier = $this->faker->numberBetween(40, 300);
         $price = $multiplier * 50000;
 
         return [
-            'id' => strtolower(str_replace(' ', '', $name)),
             'name' => $this->generateLaptopName(),
             'price' => $price,
             'description' => $this->faker->sentence(10),

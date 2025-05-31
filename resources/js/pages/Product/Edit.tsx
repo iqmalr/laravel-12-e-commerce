@@ -100,7 +100,6 @@ export default function EditProduct({ product, allTaxes }: Props) {
         }
     };
 
-    console.log(product);
     const hasErrors = Object.keys(inertiaForm.errors).length > 0;
 
     const selectedTaxes = (allTaxes || []).filter((tax) => (inertiaForm.data.taxes || []).includes(tax.id));

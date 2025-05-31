@@ -32,7 +32,6 @@ interface StaffPageProps extends PageProps {
 }
 export default function Index({ staff }: StaffPageProps) {
     const { delete: destroy, post } = useForm();
-
     function deleteStaff(id: string) {
         destroy(`/staff/${id}`, {
             preserveScroll: true,

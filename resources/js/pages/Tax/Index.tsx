@@ -51,7 +51,6 @@ export default function Index({ tax }: TaxPageProps) {
     function restoreTax(id: string) {
         post(`/tax/${id}/restore`);
     }
-    console.log(tax);
     const activeTax = tax?.filter((tax) => !tax.deleted_at);
     const inactiveTax = tax?.filter((tax) => tax.deleted_at);
 
