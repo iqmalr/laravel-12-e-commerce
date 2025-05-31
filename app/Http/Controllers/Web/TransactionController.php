@@ -1,87 +1,107 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Web;
 
+use App\Http\Controllers\Controller;
 use App\Models\Transaction;
 use App\Models\TransactionItem;
 use App\Models\Customer;
+use App\Models\Product;
 use App\Models\PaymentMethod;
 use App\Models\TransactionStatus;
-use App\Models\Product;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
-use Illuminate\Support\Facades\Validator;
-use Carbon\Carbon;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Log;
 use Inertia\Inertia;
+use Inertia\Response;
 
 class TransactionController extends Controller
 {
-    public function index(Request $request)
+    /**
+     * Display a listing of transactions
+     */
+    public function index(): Response
     {
-        $query = Transaction::with([
-            'customer.user',
-            'staff',
-            'paymentMethod',
-            'transactionStatus',
-            'items.product'
-        ]);
+        $transactions = Transaction::with([
+            'customer.user:id,name',
+            'staff:id,name',
+            'paymentMethod:id,name',
+            'transactionStatus:id,name',
+            'items.product:id,name'
+        ])
+            ->orderBy('transaction_time', 'desc')
+            ->paginate(15);
 
-        if ($request->has('status_id')) {
-            $query->where('transaction_status_id', $request->status_id);
-        }
-
-        if ($request->has('start_date') && $request->has('end_date')) {
-            $query->whereBetween('transaction_time', [
-                $request->start_date,
-                $request->end_date
-            ]);
-        }
-
-        if ($request->has('customer_id')) {
-            $query->where('customer_id', $request->customer_id);
-        }
-
-        $perPage = $request->get('per_page', 15);
-        $transactions = $query->orderBy('transaction_time', 'desc')->paginate($perPage);
-
-        return Inertia::render('Transactions/Index', [
-            'transactions' => $transactions,
+        return Inertia::render('Transaction/Index', [
+            'transactions' => $transactions
         ]);
     }
 
+    /**
+     * Show the form for creating a new transaction
+     */
+    public function create(): Response
+    {
+        $customers = Customer::with('user:id,name')
+            ->whereHas('user')
+            ->get()
+            ->map(function ($customer) {
+                return [
+                    'id' => $customer->id,
+                    'name' => $customer->user->name ?? 'Unknown',
+                ];
+            });
+
+        $products = Product::select('id', 'name', 'price')
+            ->orderBy('name')
+            ->get();
+
+        $paymentMethods = PaymentMethod::select('id', 'name')
+            ->orderBy('name')
+            ->get();
+
+        $transactionStatuses = TransactionStatus::select('id', 'name')
+            ->orderBy('name')
+            ->get();
+
+        return Inertia::render('Transaction/Create', [
+            'customers' => $customers,
+            'products' => $products,
+            'paymentMethods' => $paymentMethods,
+            'transactionStatuses' => $transactionStatuses,
+        ]);
+    }
+
+    /**
+     * Store a newly created transaction
+     */
     public function store(Request $request)
     {
-        $validator = Validator::make($request->all(), [
+        $validated = $request->validate([
             'customer_id' => 'required|exists:m_customers,id',
             'payment_method_id' => 'required|exists:m_payment_methods,id',
             'transaction_status_id' => 'required|exists:m_transaction_statuses,id',
             'items' => 'required|array|min:1',
-            'items.*.product_id' => 'required|exists:products,id',
+            'items.*.product_id' => 'required|exists:m_products,id',
             'items.*.quantity' => 'required|integer|min:1',
             'items.*.unit_price' => 'required|numeric|min:0',
             'items.*.applied_tax_percentage' => 'nullable|numeric|min:0|max:100',
         ]);
-
-        if ($validator->fails()) {
-            return redirect()->back()->withErrors($validator)->withInput();
-        }
-
         DB::beginTransaction();
 
         try {
             $transaction = Transaction::create([
-                'customer_id' => $request->customer_id,
-                'staff_id' => auth()->id(),
-                'transaction_time' => $request->transaction_time ?? Carbon::now(),
-                'payment_method_id' => $request->payment_method_id,
-                'transaction_status_id' => $request->transaction_status_id,
+                'customer_id' => $validated['customer_id'],
+                'staff_id' => Auth::id(),
+                'transaction_time' => now(),
+                'payment_method_id' => $validated['payment_method_id'],
+                'transaction_status_id' => $validated['transaction_status_id'],
             ]);
-
-            $totalAmount = 0;
-            foreach ($request->items as $item) {
+            foreach ($validated['items'] as $index => $item) {
                 $taxPercentage = $item['applied_tax_percentage'] ?? 0;
                 $subtotal = $item['quantity'] * $item['unit_price'];
-                $taxAmount = ($subtotal * $taxPercentage) / 100;
+                $taxAmount = $subtotal * ($taxPercentage / 100);
 
                 TransactionItem::create([
                     'transaction_id' => $transaction->id,
@@ -92,169 +112,191 @@ class TransactionController extends Controller
                     'applied_tax_percentage' => $taxPercentage,
                     'tax_amount' => $taxAmount,
                 ]);
-
-                $totalAmount += $subtotal + $taxAmount;
             }
 
             DB::commit();
-
-            return redirect()->route('transactions.index')->with('success', 'Transaksi berhasil dibuat. Total: Rp' . number_format($totalAmount, 0, ',', '.'));
+            return redirect()
+                ->route('transaction.index')
+                ->with('success', 'Transaksi berhasil dibuat!');
         } catch (\Exception $e) {
-            DB::rollBack();
-            return redirect()->back()->with('error', 'Gagal membuat transaksi: ' . $e->getMessage());
+            DB::rollback();
+            return back()
+                ->withInput()
+                ->withErrors(['error' => 'Gagal membuat transaksi: ' . $e->getMessage()]);
         }
     }
 
-    public function show(string $id)
+    /**
+     * Display the specified transaction
+     */
+    public function show(Transaction $transaction): Response
     {
-        try {
-            $transaction = Transaction::with([
-                'customer.user',
-                'staff',
-                'paymentMethod',
-                'transactionStatus',
-                'items.product'
-            ])->findOrFail($id);
-
-            $totalAmount = $transaction->items->sum(function ($item) {
-                return $item->subtotal + $item->tax_amount;
-            });
-
-            return Inertia::render('Transactions/Show', [
-                'transaction' => $transaction,
-                'totalAmount' => $totalAmount,
-            ]);
-        } catch (\Exception $e) {
-            return redirect()->route('transactions.index')->with('error', 'Transaksi tidak ditemukan: ' . $e->getMessage());
-        }
-    }
-
-    public function update(Request $request, string $id)
-    {
-        $validator = Validator::make($request->all(), [
-            'customer_id' => 'sometimes|exists:m_customers,id',
-            'payment_method_id' => 'sometimes|exists:m_payment_methods,id',
-            'transaction_status_id' => 'sometimes|exists:m_transaction_statuses,id',
-            'items' => 'sometimes|array|min:1',
-            'items.*.product_id' => 'required_with:items|exists:products,id',
-            'items.*.quantity' => 'required_with:items|integer|min:1',
-            'items.*.unit_price' => 'required_with:items|numeric|min:0',
-            'items.*.applied_tax_percentage' => 'nullable|numeric|min:0|max:100',
+        $transaction->load([
+            'customer.user:id,name,email,phone',
+            'staff:id,name',
+            'paymentMethod:id,name,description',
+            'transactionStatus:id,name,description',
+            'items.product:id,name,description'
         ]);
 
-        if ($validator->fails()) {
-            return redirect()->back()->withErrors($validator)->withInput();
-        }
+        $subtotal = $transaction->items->sum('subtotal');
+        $totalTax = $transaction->items->sum('tax_amount');
+        $grandTotal = $subtotal + $totalTax;
 
-        DB::beginTransaction();
-
-        try {
-            $transaction = Transaction::findOrFail($id);
-
-            $transaction->update($request->only([
-                'customer_id',
-                'payment_method_id',
-                'transaction_status_id'
-            ]));
-
-            if ($request->has('items')) {
-                $transaction->items()->delete();
-
-                foreach ($request->items as $item) {
-                    $taxPercentage = $item['applied_tax_percentage'] ?? 0;
-                    $subtotal = $item['quantity'] * $item['unit_price'];
-                    $taxAmount = ($subtotal * $taxPercentage) / 100;
-
-                    TransactionItem::create([
-                        'transaction_id' => $transaction->id,
-                        'product_id' => $item['product_id'],
-                        'quantity' => $item['quantity'],
-                        'unit_price' => $item['unit_price'],
-                        'subtotal' => $subtotal,
-                        'applied_tax_percentage' => $taxPercentage,
-                        'tax_amount' => $taxAmount,
-                    ]);
-                }
-            }
-
-            DB::commit();
-
-            return redirect()->route('transactions.show', $transaction->id)->with('success', 'Transaksi berhasil diperbarui.');
-        } catch (\Exception $e) {
-            DB::rollBack();
-            return redirect()->back()->with('error', 'Gagal memperbarui transaksi: ' . $e->getMessage());
-        }
+        return Inertia::render('Transaction/Show', [
+            'transaction' => $transaction,
+            'totals' => [
+                'subtotal' => $subtotal,
+                'total_tax' => $totalTax,
+                'grand_total' => $grandTotal,
+            ]
+        ]);
     }
 
-    public function destroy(string $id)
+    /**
+     * Get transaction summary/statistics
+     */
+    public function summary()
     {
-        DB::beginTransaction();
+        $today = now()->startOfDay();
+        $thisMonth = now()->startOfMonth();
 
-        try {
-            $transaction = Transaction::findOrFail($id);
-            $transaction->items()->delete();
-            $transaction->delete();
+        $summary = [
+            'today' => [
+                'count' => Transaction::whereDate('transaction_time', $today)->count(),
+                'total' => $this->calculateDayTotal($today),
+            ],
+            'this_month' => [
+                'count' => Transaction::whereDate('transaction_time', '>=', $thisMonth)->count(),
+                'total' => $this->calculateMonthTotal($thisMonth),
+            ],
+            'recent_transactions' => Transaction::with([
+                'customer.user:id,name',
+                'transactionStatus:id,name'
+            ])
+                ->orderBy('transaction_time', 'desc')
+                ->limit(5)
+                ->get()
+        ];
 
-            DB::commit();
-
-            return redirect()->route('transactions.index')->with('success', 'Transaksi berhasil dihapus.');
-        } catch (\Exception $e) {
-            DB::rollBack();
-            return redirect()->route('transactions.index')->with('error', 'Gagal menghapus transaksi: ' . $e->getMessage());
-        }
+        return response()->json($summary);
     }
 
-    public function summary(Request $request)
+    /**
+     * Search transactions
+     */
+    public function search(Request $request)
     {
-        try {
-            $query = Transaction::with('items');
+        $query = $request->get('q');
+        $status = $request->get('status');
+        $dateFrom = $request->get('date_from');
+        $dateTo = $request->get('date_to');
 
-            if ($request->has('start_date') && $request->has('end_date')) {
-                $query->whereBetween('transaction_time', [
-                    $request->start_date,
-                    $request->end_date
-                ]);
-            }
+        $transactions = Transaction::with([
+            'customer.user:id,name',
+            'staff:id,name',
+            'transactionStatus:id,name'
+        ])
+            ->when($query, function ($q) use ($query) {
+                $q->whereHas('customer.user', function ($subQ) use ($query) {
+                    $subQ->where('name', 'like', "%{$query}%");
+                });
+            })
+            ->when($status, function ($q) use ($status) {
+                $q->where('transaction_status_id', $status);
+            })
+            ->when($dateFrom, function ($q) use ($dateFrom) {
+                $q->whereDate('transaction_time', '>=', $dateFrom);
+            })
+            ->when($dateTo, function ($q) use ($dateTo) {
+                $q->whereDate('transaction_time', '<=', $dateTo);
+            })
+            ->orderBy('transaction_time', 'desc')
+            ->paginate(15);
 
-            $transactions = $query->get();
+        return Inertia::render('Transaction/Index', [
+            'transactions' => $transactions,
+            'filters' => [
+                'q' => $query,
+                'status' => $status,
+                'date_from' => $dateFrom,
+                'date_to' => $dateTo,
+            ]
+        ]);
+    }
 
-            $summary = [
-                'total_transactions' => $transactions->count(),
-                'total_amount' => $transactions->sum(function ($transaction) {
-                    return $transaction->items->sum(function ($item) {
-                        return $item->subtotal + $item->tax_amount;
-                    });
-                }),
-                'average_transaction_value' => 0,
-                'total_items_sold' => $transactions->sum(function ($transaction) {
-                    return $transaction->items->sum('quantity');
-                }),
-                'transactions_by_status' => []
-            ];
+    /**
+     * Export transactions to PDF
+     */
+    public function exportPdf(Request $request)
+    {
 
-            if ($summary['total_transactions'] > 0) {
-                $summary['average_transaction_value'] = $summary['total_amount'] / $summary['total_transactions'];
-            }
+        $transactions = Transaction::with([
+            'customer.user',
+            'staff',
+            'paymentMethod',
+            'transactionStatus',
+            'items.product'
+        ])
+            ->when($request->date_from, function ($q) use ($request) {
+                $q->whereDate('transaction_time', '>=', $request->date_from);
+            })
+            ->when($request->date_to, function ($q) use ($request) {
+                $q->whereDate('transaction_time', '<=', $request->date_to);
+            })
+            ->orderBy('transaction_time', 'desc')
+            ->get();
 
-            $statusGroups = $transactions->groupBy('transaction_status_id');
-            foreach ($statusGroups as $statusId => $statusTransactions) {
-                $status = TransactionStatus::find($statusId);
-                $summary['transactions_by_status'][] = [
-                    'status_name' => $status->name ?? 'Unknown',
-                    'count' => $statusTransactions->count(),
-                    'total_amount' => $statusTransactions->sum(function ($transaction) {
-                        return $transaction->items->sum(function ($item) {
-                            return $item->subtotal + $item->tax_amount;
-                        });
-                    })
-                ];
-            }
+        return response()->json([
+            'message' => 'Export PDF functionality needs to be implemented with your preferred PDF library'
+        ]);
+    }
 
-            return Inertia::render('Transactions/Summary', [
-                'summary' => $summary,
-            ]);
-        } catch (\Exception $e) {
-            return redirect()->route('transactions.index')->with('error', 'Gagal mengambil ringkasan transaksi: ' . $e->getMessage());
-        }
+    /**
+     * Calculate total for a specific day
+     */
+    private function calculateDayTotal($date)
+    {
+        return Transaction::whereDate('transaction_time', $date)
+            ->with('items')
+            ->get()
+            ->sum(function ($transaction) {
+                return $transaction->items->sum(function ($item) {
+                    return $item->subtotal + $item->tax_amount;
+                });
+            });
+    }
+
+    /**
+     * Calculate total for current month
+     */
+    private function calculateMonthTotal($date)
+    {
+        return Transaction::whereDate('transaction_time', '>=', $date)
+            ->with('items')
+            ->get()
+            ->sum(function ($transaction) {
+                return $transaction->items->sum(function ($item) {
+                    return $item->subtotal + $item->tax_amount;
+                });
+            });
+    }
+
+    /**
+     * Print transaction receipt
+     */
+    public function printReceipt(Transaction $transaction)
+    {
+        $transaction->load([
+            'customer.user',
+            'staff',
+            'paymentMethod',
+            'transactionStatus',
+            'items.product'
+        ]);
+
+        return Inertia::render('Transaction/Receipt', [
+            'transaction' => $transaction
+        ]);
     }
 }

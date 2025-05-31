@@ -23,7 +23,6 @@ import { Edit, Package, PackagePlus, RotateCcw, Trash2 } from 'lucide-react';
 interface Product {
     id: string;
     name: string;
-    // sku: string;
     price: number;
     deleted_at: string | null;
 }

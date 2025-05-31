@@ -5,21 +5,8 @@ import { Sidebar, SidebarContent, SidebarFooter, SidebarHeader, SidebarMenu, Sid
 import { type NavItem } from '@/types';
 import { PageProps } from '@/types/page-props';
 import { Link, usePage } from '@inertiajs/react';
-import { BookOpen, Folder, LayoutGrid, Package, Receipt, UserRound } from 'lucide-react';
+import { BookOpen, Folder, LayoutGrid, Package, Receipt, ReceiptText, UserRound } from 'lucide-react';
 import AppLogo from './app-logo';
-
-// const mainNavItems: NavItem[] = [
-//     {
-//         title: 'Dashboard',
-//         href: '/dashboard',
-//         icon: LayoutGrid,
-//     },
-//     {
-//         title: 'Staff',
-//         href: '/staff',
-//         icon: LayoutGrid,
-//     },
-// ];
 
 const footerNavItems: NavItem[] = [
     {
@@ -62,8 +49,12 @@ export function AppSidebar() {
             href: '/tax',
             icon: Receipt,
         },
+        {
+            title: 'Transaction',
+            href: '/transaction',
+            icon: ReceiptText,
+        },
     ];
-    console.log(user);
     return (
         <Sidebar collapsible="icon" variant="inset">
             <SidebarHeader>

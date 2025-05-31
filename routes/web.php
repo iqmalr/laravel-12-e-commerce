@@ -3,6 +3,7 @@
 use App\Http\Controllers\Web\ProductController;
 use App\Http\Controllers\Web\StaffController;
 use App\Http\Controllers\Web\TaxController;
+use App\Http\Controllers\Web\TransactionController;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
 
@@ -38,6 +39,15 @@ Route::middleware(['auth', 'verified'])->group(function () {
         Route::get('/{id}/edit', [TaxController::class, 'edit'])->name('edit');
         Route::put('/{id}', [TaxController::class, 'update'])->name('update');
         Route::delete('/{id}', [TaxController::class, 'destroy'])->name('destroy');
+    });
+    Route::prefix('transaction')->group(function () {
+        Route::get('/', [TransactionController::class, 'index'])->name('transaction.index');
+        Route::get('/create', [TransactionController::class, 'create'])->name('transaction.create');
+        Route::post('/', [TransactionController::class, 'store'])->name('transaction.store');
+        Route::get('/{transaction}', [TransactionController::class, 'show'])->name('transaction.show');
+        Route::get('/search', [TransactionController::class, 'search'])->name('transaction.search');
+        Route::get('/summary', [TransactionController::class, 'summary'])->name('transaction.summary');
+        Route::get('/{transaction}/receipt', [TransactionController::class, 'printReceipt'])->name('transaction.receipt');
     });
 });
 

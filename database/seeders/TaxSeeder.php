@@ -23,30 +23,21 @@ class TaxSeeder extends Seeder
             [
                 'name' => 'PPN',
                 'percentage' => 11,
-                // 'valid_from' => Carbon::create(2024, 12, 31),
-
-                // 'valid_to' => null,
                 'created_at' => $now,
             ],
             [
                 'name' => 'PPnBM',
                 'percentage' => 10,
-                // 'valid_from' => $now,
-                // 'valid_to' => null,
                 'created_at' => $now,
             ],
             [
                 'name' => 'PPnBM',
                 'percentage' => 20,
-                // 'valid_from' => $now,
-                // 'valid_to' => null,
                 'created_at' => $now,
             ],
             [
                 'name' => 'PPN',
                 'percentage' => 10,
-                // 'valid_from' => Carbon::create(2024, 1, 1),
-                // 'valid_to' => Carbon::create(2024, 12, 31),
                 'created_at' => Carbon::create(2024, 1, 1),
             ],
         ];
@@ -63,8 +54,6 @@ class TaxSeeder extends Seeder
                 'id' => $id,
                 'name' => $tax['name'],
                 'percentage' => $percentage,
-                // 'valid_from' => $tax['valid_from'],
-                // 'valid_to' => $tax['valid_to'],
                 'created_at' => $createdAt,
                 'updated_at' => $createdAt,
             ]);
