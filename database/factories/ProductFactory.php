@@ -16,7 +16,8 @@ class ProductFactory extends Factory
      * @return array<string, mixed>
      */
     protected $model = Product::class;
-    private static int $laptopCounter = 1;
+    private static int $regularCounter = 1;
+    private static int $premiumCounter = 1;
 
     public function definition(): array
     {
@@ -34,9 +35,21 @@ class ProductFactory extends Factory
         ];
     }
 
-    private function generateLaptopName(): string
+    private function generateLaptopName(string $prefix = 'Laptop'): string
     {
-        return 'Laptop ' . self::$laptopCounter++;
+        if ($prefix === 'Laptop Premium') {
+            return $prefix . ' ' . self::$premiumCounter++;
+        }
+
+        return $prefix . ' ' . self::$regularCounter++;
+    }
+    public function premium(): static
+    {
+        return $this->state(function () {
+            return [
+                'name' => $this->generateLaptopName('Laptop Premium'),
+            ];
+        });
     }
 
     public function withPrice(int $minPrice = 2000000, int $maxPrice = 10000000): static

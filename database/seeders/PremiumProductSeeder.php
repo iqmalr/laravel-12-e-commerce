@@ -13,6 +13,10 @@ class PremiumProductSeeder extends Seeder
      */
     public function run()
     {
-        Product::factory()->count(5)->withPrice(10000000, 50000000)->create();
+        Product::factory()
+            ->count(5)
+            ->premium()
+            ->withPrice(10000000, 50000000)
+            ->create();
     }
 }
