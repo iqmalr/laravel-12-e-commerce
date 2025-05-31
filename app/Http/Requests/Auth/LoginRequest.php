@@ -49,6 +49,18 @@ class LoginRequest extends FormRequest
             ]);
         }
 
+        $user = Auth::user();
+
+        $allowedRoles = ['Admin', 'SuperAdmin'];
+        $userRole = optional($user->role)->name;
+        if (!in_array($userRole, $allowedRoles)) {
+            Auth::logout();
+
+            throw ValidationException::withMessages([
+                'email' => 'Anda tidak memiliki akses untuk login.',
+            ]);
+        }
+
         RateLimiter::clear($this->throttleKey());
     }
 
@@ -80,6 +92,6 @@ class LoginRequest extends FormRequest
      */
     public function throttleKey(): string
     {
-        return Str::transliterate(Str::lower($this->string('email')).'|'.$this->ip());
+        return Str::transliterate(Str::lower($this->string('email')) . '|' . $this->ip());
     }
 }
