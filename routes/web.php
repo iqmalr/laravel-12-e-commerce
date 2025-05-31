@@ -43,10 +43,10 @@ Route::middleware(['auth', 'verified'])->group(function () {
     Route::prefix('transaction')->group(function () {
         Route::get('/', [TransactionController::class, 'index'])->name('transaction.index');
         Route::get('/create', [TransactionController::class, 'create'])->name('transaction.create');
-        Route::post('/', [TransactionController::class, 'store'])->name('transaction.store');
-        Route::get('/{transaction}', [TransactionController::class, 'show'])->name('transaction.show');
         Route::get('/search', [TransactionController::class, 'search'])->name('transaction.search');
         Route::get('/summary', [TransactionController::class, 'summary'])->name('transaction.summary');
+        Route::post('/', [TransactionController::class, 'store'])->name('transaction.store');
+        Route::get('/{transaction}', [TransactionController::class, 'show'])->name('transaction.show');
         Route::get('/{transaction}/receipt', [TransactionController::class, 'printReceipt'])->name('transaction.receipt');
     });
 });

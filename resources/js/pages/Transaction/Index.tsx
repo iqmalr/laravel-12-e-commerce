@@ -34,7 +34,7 @@ export default function Index({ transactions, filters = {} }: TransactionPagePro
 
     const handleSearch = () => {
         router.get(
-            '/transaction',
+            '/transaction/search',
             {
                 q: searchQuery,
                 status: statusFilter,

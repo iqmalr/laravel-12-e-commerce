@@ -202,8 +202,16 @@ class TransactionController extends Controller
                     $subQ->where('name', 'like', "%{$query}%");
                 });
             })
+            // ->when($status, function ($q) use ($status) {
+            //     // $q->where('transaction_status_id', $status);
+            //     $q->whereHas('transactionStatus', function ($subQ) use ($status) {
+            //         $subQ->where('name', 'like', "%{$status}%");
+            //     });
+            // })
             ->when($status, function ($q) use ($status) {
-                $q->where('transaction_status_id', $status);
+                $q->whereHas('transactionStatus', function ($subQ) use ($status) {
+                    $subQ->whereRaw('LOWER(name) = ?', [strtolower($status)]);
+                });
             })
             ->when($dateFrom, function ($q) use ($dateFrom) {
                 $q->whereDate('transaction_time', '>=', $dateFrom);

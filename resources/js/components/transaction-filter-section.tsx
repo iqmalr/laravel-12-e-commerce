@@ -71,16 +71,17 @@ export default function TransactionFilterSection({
                     <div className="grid grid-cols-1 gap-4 border-t pt-4 md:grid-cols-3">
                         <div>
                             <label className="mb-2 block text-sm font-medium">Status</label>
-                            <Select value={statusFilter} onValueChange={setStatusFilter}>
+                            {/* <Select value={statusFilter||'all'} onValueChange={setStatusFilter}> */}
+                            <Select value={statusFilter || 'all'} onValueChange={(value) => setStatusFilter(value === 'all' ? '' : value)}>
                                 <SelectTrigger>
                                     <SelectValue placeholder="Semua Status" />
                                 </SelectTrigger>
                                 <SelectContent>
-                                    <SelectItem value="">Semua Status</SelectItem>
-                                    <SelectItem value="pending">Pending</SelectItem>
-                                    <SelectItem value="completed">Completed</SelectItem>
-                                    <SelectItem value="cancelled">Cancelled</SelectItem>
-                                    <SelectItem value="refunded">Refunded</SelectItem>
+                                    <SelectItem value="all">Semua Status</SelectItem>
+                                    <SelectItem value="1">Pending</SelectItem>
+                                    <SelectItem value="2">Completed</SelectItem>
+                                    <SelectItem value="3">Cancelled</SelectItem>
+                                    <SelectItem value="4">Refunded</SelectItem>
                                 </SelectContent>
                             </Select>
                         </div>
