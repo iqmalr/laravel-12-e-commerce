@@ -156,31 +156,169 @@ class TransactionController extends Controller
     /**
      * Get transaction summary/statistics
      */
+    // public function summary()
+    // {
+    //     $today = now()->startOfDay();
+    //     $thisMonth = now()->startOfMonth();
+
+    //     $summary = [
+    //         'today' => [
+    //             'count' => Transaction::whereDate('transaction_time', $today)->count(),
+    //             'total' => $this->calculateDayTotal($today),
+    //         ],
+    //         'this_month' => [
+    //             'count' => Transaction::whereDate('transaction_time', '>=', $thisMonth)->count(),
+    //             'total' => $this->calculateMonthTotal($thisMonth),
+    //         ],
+    //         'recent_transactions' => Transaction::with([
+    //             'customer.user:id,name',
+    //             'transactionStatus:id,name'
+    //         ])
+    //             ->orderBy('transaction_time', 'desc')
+    //             ->limit(5)
+    //             ->get()
+    //     ];
+
+    //     return response()->json($summary);
+    // }
     public function summary()
     {
         $today = now()->startOfDay();
         $thisMonth = now()->startOfMonth();
+        $thisYear = now()->startOfYear();
 
-        $summary = [
-            'today' => [
-                'count' => Transaction::whereDate('transaction_time', $today)->count(),
-                'total' => $this->calculateDayTotal($today),
-            ],
-            'this_month' => [
-                'count' => Transaction::whereDate('transaction_time', '>=', $thisMonth)->count(),
-                'total' => $this->calculateMonthTotal($thisMonth),
-            ],
-            'recent_transactions' => Transaction::with([
-                'customer.user:id,name',
-                'transactionStatus:id,name'
-            ])
-                ->orderBy('transaction_time', 'desc')
-                ->limit(5)
-                ->get()
-        ];
+        // Basic summary
+        $todayTransactions = Transaction::whereDate('transaction_time', $today);
+        $monthTransactions = Transaction::whereDate('transaction_time', '>=', $thisMonth);
+        $yearTransactions = Transaction::whereDate('transaction_time', '>=', $thisYear);
 
-        return response()->json($summary);
+        // Recent transactions
+        $recentTransactions = Transaction::with([
+            'customer.user:id,name',
+            'transactionStatus:id,name',
+            'paymentMethod:id,name',
+            'items'
+        ])
+            ->orderBy('transaction_time', 'desc')
+            ->limit(5)
+            ->get()
+            ->map(function ($transaction) {
+                return [
+                    'id' => $transaction->id,
+                    'customer_name' => $transaction->customer->user->name ?? 'Guest',
+                    'total_amount' => $transaction->items->sum(function ($item) {
+                        return $item->quantity * $item->unit_price;
+                    }),
+                    'status' => $transaction->transactionStatus->name ?? 'Unknown',
+                    'payment_method' => $transaction->paymentMethod->name ?? 'Unknown',
+                    'transaction_time' => $transaction->transaction_time->format('Y-m-d H:i'),
+                ];
+            });
+
+        // Daily revenue for last 7 days
+        $dailyRevenue = collect();
+        for ($i = 6; $i >= 0; $i--) {
+            $date = now()->subDays($i)->startOfDay();
+            $dayTransactions = Transaction::with('items')
+                ->whereDate('transaction_time', $date)
+                ->get();
+
+            $totalRevenue = $dayTransactions->sum(function ($transaction) {
+                return $transaction->items->sum(function ($item) {
+                    return $item->quantity * $item->unit_price;
+                });
+            });
+
+            $dailyRevenue->push([
+                'date' => $date->format('M d'),
+                'revenue' => $totalRevenue,
+                'transactions' => $dayTransactions->count(),
+            ]);
+        }
+
+        // Monthly revenue for last 6 months
+        $monthlyRevenue = collect();
+        for ($i = 5; $i >= 0; $i--) {
+            $startOfMonth = now()->subMonths($i)->startOfMonth();
+            $endOfMonth = now()->subMonths($i)->endOfMonth();
+
+            $monthTransactions = Transaction::with('items')
+                ->whereBetween('transaction_time', [$startOfMonth, $endOfMonth])
+                ->get();
+
+            $totalRevenue = $monthTransactions->sum(function ($transaction) {
+                return $transaction->items->sum(function ($item) {
+                    return $item->quantity * $item->unit_price;
+                });
+            });
+
+            $monthlyRevenue->push([
+                'month' => $startOfMonth->format('M Y'),
+                'revenue' => $totalRevenue,
+                'transactions' => $monthTransactions->count(),
+            ]);
+        }
+
+        // Payment method distribution
+        $paymentMethods = Transaction::with(['paymentMethod', 'items'])
+            ->whereDate('transaction_time', '>=', $thisMonth)
+            ->get()
+            ->groupBy(fn($t) => $t->paymentMethod->name ?? 'Unknown')
+            ->map(function ($transactions, $method) {
+                $totalRevenue = $transactions->sum(function ($transaction) {
+                    return $transaction->items->sum(function ($item) {
+                        return $item->quantity * $item->unit_price;
+                    });
+                });
+
+                return [
+                    'name' => $method,
+                    'count' => $transactions->count(),
+                    'revenue' => $totalRevenue,
+                ];
+            })
+            ->values();
+
+        // Status distribution
+        $statusDistribution = Transaction::with(['transactionStatus', 'items'])
+            ->whereDate('transaction_time', '>=', $thisMonth)
+            ->get()
+            ->groupBy(fn($t) => $t->transactionStatus->name ?? 'Unknown')
+            ->map(function ($transactions, $status) {
+                return [
+                    'name' => $status,
+                    'count' => $transactions->count(),
+                ];
+            })
+            ->values();
+
+        // Totals
+        $todayTotal = $todayTransactions->with('items')->get()->sum(function ($transaction) {
+            return $transaction->items->sum(fn($item) => $item->quantity * $item->unit_price);
+        });
+
+        $monthTotal = $monthTransactions->with('items')->get()->sum(function ($transaction) {
+            return $transaction->items->sum(fn($item) => $item->quantity * $item->unit_price);
+        });
+
+        $yearTotal = $yearTransactions->with('items')->get()->sum(function ($transaction) {
+            return $transaction->items->sum(fn($item) => $item->quantity * $item->unit_price);
+        });
+
+        return response()->json([
+            'recent_transactions' => $recentTransactions,
+            'daily_revenue' => $dailyRevenue,
+            'monthly_revenue' => $monthlyRevenue,
+            'payment_methods' => $paymentMethods,
+            'status_distribution' => $statusDistribution,
+            'totals' => [
+                'today' => $todayTotal,
+                'this_month' => $monthTotal,
+                'this_year' => $yearTotal,
+            ],
+        ]);
     }
+
 
     /**
      * Search transactions

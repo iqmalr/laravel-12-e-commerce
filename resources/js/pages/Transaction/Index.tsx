@@ -1,18 +1,15 @@
+import PaginationControls from '@/components/pagination-control';
+import TransactionDataTable from '@/components/transaction-data-table';
+import TransactionStatsCards from '@/components/transaction-stats-card';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { Separator } from '@/components/ui/separator';
 import AppLayout from '@/layouts/app-layout';
 import { type BreadcrumbItem } from '@/types';
 import { PageProps } from '@/types/page-props';
-import { Head, Link, router } from '@inertiajs/react';
-import { FileDown, Plus, Receipt } from 'lucide-react';
-import { useState } from 'react';
-
-import PaginationControls from '@/components/pagination-control';
-import TransactionFilterSection from '@/components/transaction-filter-section';
-import TransactionStatsCards from '@/components/transaction-stats-card';
-import TransactionTable from '@/components/transaction-table';
 import { TransactionFilters, TransactionPagination } from '@/types/transaction';
+import { Head, Link } from '@inertiajs/react';
+import { FileDown, Plus, Receipt } from 'lucide-react';
 
 const breadcrumbs: BreadcrumbItem[] = [
     {
@@ -26,37 +23,8 @@ interface TransactionPageProps extends PageProps {
     filters?: TransactionFilters;
 }
 
-export default function Index({ transactions, filters = {} }: TransactionPageProps) {
-    const [searchQuery, setSearchQuery] = useState(filters.q || '');
-    const [statusFilter, setStatusFilter] = useState(filters.status || '');
-    const [dateFrom, setDateFrom] = useState(filters.date_from || '');
-    const [dateTo, setDateTo] = useState(filters.date_to || '');
-
-    const handleSearch = () => {
-        router.get(
-            '/transaction/search',
-            {
-                q: searchQuery,
-                status: statusFilter,
-                date_from: dateFrom,
-                date_to: dateTo,
-            },
-            {
-                preserveState: true,
-                preserveScroll: true,
-            },
-        );
-    };
-
-    const clearFilters = () => {
-        setSearchQuery('');
-        setStatusFilter('');
-        setDateFrom('');
-        setDateTo('');
-        router.get('/transaction');
-    };
-
-    const completedTransactions = transactions.data.filter((t) => t.transaction_status?.name?.toLowerCase() === 'completed');
+export default function Index({ transactions }: TransactionPageProps) {
+    const completedTransactions = transactions.data.filter((t) => t.transaction_status?.name?.toLowerCase() === 'paid');
     const pendingTransactions = transactions.data.filter((t) => t.transaction_status?.name?.toLowerCase() === 'pending');
 
     return (
@@ -89,25 +57,14 @@ export default function Index({ transactions, filters = {} }: TransactionPagePro
                     perPage={transactions.per_page}
                 />
 
-                <TransactionFilterSection
-                    searchQuery={searchQuery}
-                    setSearchQuery={setSearchQuery}
-                    statusFilter={statusFilter}
-                    setStatusFilter={setStatusFilter}
-                    dateFrom={dateFrom}
-                    setDateFrom={setDateFrom}
-                    dateTo={dateTo}
-                    setDateTo={setDateTo}
-                    onSearch={handleSearch}
-                    onClearFilters={clearFilters}
-                />
-
                 <Card>
                     <CardHeader>
                         <div className="flex items-center justify-between">
                             <div>
                                 <CardTitle>Daftar Transaksi</CardTitle>
-                                <CardDescription>Daftar lengkap transaksi yang terdaftar dalam sistem</CardDescription>
+                                <CardDescription>
+                                    Daftar lengkap transaksi yang terdaftar dalam sistem dengan fitur pencarian, filter, dan pengurutan
+                                </CardDescription>
                             </div>
                             <div className="flex gap-2">
                                 <Button variant="outline" size="sm" className="gap-2">
@@ -118,7 +75,7 @@ export default function Index({ transactions, filters = {} }: TransactionPagePro
                         </div>
                     </CardHeader>
                     <CardContent>
-                        <TransactionTable transactions={transactions.data} />
+                        <TransactionDataTable transactions={transactions.data} />
 
                         <PaginationControls
                             currentPage={transactions.current_page}

@@ -16,7 +16,7 @@ interface PaginationControlsProps {
     links: PaginationLink[];
 }
 
-export default function PaginationControls({ currentPage, lastPage, from, to, total, links }: PaginationControlsProps) {
+export default function PaginationControls({ lastPage, from, to, total, links }: PaginationControlsProps) {
     if (lastPage <= 1) {
         return null;
     }

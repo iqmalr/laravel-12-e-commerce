@@ -30,10 +30,10 @@ class TransactionSeeder extends Seeder
                 'id' => Str::uuid(),
                 'customer_id' => $faker->randomElement($customers),
                 'staff_id' => $faker->randomElement($staffs),
-                'transaction_time' => $faker->dateTimeBetween('-5 month', 'now'),
+                'transaction_time' => $faker->dateTimeBetween('-6 month', 'now'),
                 'payment_method_id' => $faker->randomElement($paymentMethods),
                 'transaction_status_id' => $faker->randomElement($statuses),
-                'created_at' => now(),
+                'created_at' => $faker->dateTimeBetween('-6 month', 'now'),
                 'updated_at' => now(),
             ];
         }
