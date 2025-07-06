@@ -24,6 +24,7 @@ interface Product {
     id: string;
     name: string;
     price: number;
+    status: string;
     deleted_at: string | null;
 }
 
@@ -121,6 +122,7 @@ export default function Index({ product }: ProductPageProps) {
                                         {/* <TableHead className="font-semibold">SKU</TableHead> */}
                                         <TableHead className="font-semibold">Harga</TableHead>
                                         <TableHead className="font-semibold">Status</TableHead>
+                                        <TableHead className="font-semibold">Status Upload</TableHead>
                                         <TableHead className="text-right font-semibold">Aksi</TableHead>
                                     </TableRow>
                                 </TableHeader>
@@ -156,6 +158,11 @@ export default function Index({ product }: ProductPageProps) {
                                                         {item.deleted_at ? 'Nonaktif' : 'Aktif'}
                                                     </Badge>
                                                 </TableCell>
+                                                {/* <TableCell>
+<Badge variant={item.status?'destructive', pending}>
+
+</Badge>
+                                                </TableCell> */}
                                                 <TableCell className="text-right">
                                                     <div className="flex items-center justify-end gap-2">
                                                         {!item.deleted_at ? (

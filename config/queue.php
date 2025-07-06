@@ -30,9 +30,9 @@ return [
 
     'connections' => [
 
-        'sync' => [
-            'driver' => 'sync',
-        ],
+        // 'sync' => [
+        //     'driver' => 'sync',
+        // ],
 
         'database' => [
             'driver' => 'database',

@@ -14,7 +14,7 @@ return [
     */
 
     'default' => env('FILESYSTEM_DISK', 'local'),
-
+    // 'default' => env('FILESYSTEM_DISK', 'private'),
     /*
     |--------------------------------------------------------------------------
     | Filesystem Disks
@@ -67,6 +67,10 @@ return [
             'url' => env('CLOUDINARY_URL'),
             'secure' => (bool) env('CLOUDINARY_SECURE', true),
             'prefix' => env('CLOUDINARY_PREFIX'),
+        ],
+        'private' => [
+            'driver' => 'local',
+            'root' => storage_path('app/private'),
         ],
 
     ],

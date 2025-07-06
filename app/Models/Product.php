@@ -24,7 +24,8 @@ class Product extends Model
         'deleted_at',
         'restored_at',
         'image_url',
-        'image_public_id'
+        'image_public_id',
+        'status'
     ];
 
     public function taxes()
