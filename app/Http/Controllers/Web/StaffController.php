@@ -3,81 +3,54 @@
 namespace App\Http\Controllers\Web;
 
 use App\Http\Controllers\Controller;
-use App\Models\User;
-use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Hash;
+use App\Http\Requests\Staff\StoreStaffRequest;
+use App\Http\Requests\Staff\UpdateStaffRequest;
+use App\Services\StaffService;
 use Inertia\Inertia;
 
 class StaffController extends Controller
 {
+    protected StaffService $staffService;
+    public function __construct(StaffService $staffService)
+    {
+        $this->staffService = $staffService;
+    }
     /**
      * Display a listing of the resource.
      */
     public function index()
     {
-        $staff = User::withTrashed()->where('role_id', 2)->get();
+        $staff = $this->staffService->getAll();
         return Inertia::render('Staff/Index', compact('staff'));
     }
     public function create()
     {
         return Inertia::render('Staff/Create');
     }
-    public function store(Request $request)
+    public function store(StoreStaffRequest $request)
     {
-        $validated = $request->validate([
-            'name' => 'required|string|max:255',
-            'username' => 'required|string|max:255|unique:users,username',
-            'email' => 'required|email|unique:users,email',
-            'password' => 'required|string|min:8|confirmed',
-        ]);
-
-        User::create([
-            'name' => $validated['name'],
-            'username' => $validated['username'],
-            'email' => $validated['email'],
-            'password' => Hash::make($validated['password']),
-            'role_id' => 2,
-        ]);
-
-        return redirect()->route('staff.index')->with('success', 'Admin created successfully.');
+        $this->staffService->create($request->validated());
+        return redirect()->route('staff.index')->with('success', 'Staff created successfully.');
     }
     public function edit($id)
     {
-        $staff = User::where('role_id', 2)->findOrFail($id);
+        $staff = $this->staffService->find($id);
         return Inertia::render('Staff/Edit', compact('staff'));
     }
-    public function update(Request $request, $id)
+    public function update(UpdateStaffRequest $request, $id)
     {
-        $staff = User::where('role_id', 2)->findOrFail($id);
+        $this->staffService->update($id, $request->validated());
 
-        $validated = $request->validate([
-            'name' => 'required|string|max:255',
-            'username' => 'required|string|max:255|unique:users,username,' . $id,
-            'email' => 'required|email|unique:users,email,' . $id,
-            'password' => 'nullable|string|min:8|confirmed',
-        ]);
-
-        $staff->update([
-            'name' => $validated['name'],
-            'username' => $validated['username'],
-            'email' => $validated['email'],
-            'password' => $validated['password'] ? Hash::make($validated['password']) : $staff->password,
-        ]);
-
-        return redirect()->route('staff.index')->with('success', 'Admin updated successfully.');
+        return redirect()->route('staff.index')->with('success', 'Staff updated successfully.');
     }
     public function destroy($id)
     {
-        $staff = User::where('role_id', 2)->findOrFail($id);
-        $staff->delete();
-
-        return redirect()->route('staff.index')->with('success', 'Admin deleted successfully.');
+        $this->staffService->delete($id);
+        return redirect()->route('staff.index')->with('success', 'Staff deleted successfully.');
     }
     public function restore($id)
     {
-        $staff = User::withTrashed()->findOrFail($id);
-        $staff->restore();
-
-        return redirect()->route('staff.index')->with('success', 'Staff berhasil dipulihkan.');
+        $this->staffService->restore($id);
+        return redirect()->route('staff.index')->with('success', 'Staff restored successfully.');
     }
 }
