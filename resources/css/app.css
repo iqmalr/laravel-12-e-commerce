@@ -155,6 +155,6 @@
     }
 
     body {
-        @apply bg-background text-light-foreground;
+        @apply bg-background text-foreground;
     }
 }
