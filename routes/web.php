@@ -43,6 +43,7 @@ Route::middleware(['auth', 'verified'])->group(function () {
         Route::get('/{id}/edit', [TaxController::class, 'edit'])->name('edit');
         Route::put('/{id}', [TaxController::class, 'update'])->name('update');
         Route::delete('/{id}', [TaxController::class, 'destroy'])->name('destroy');
+        Route::post('/{id}/restore', [TaxController::class, 'restore'])->name('restore');
     });
     Route::prefix('transaction')->group(function () {
         Route::get('/', [TransactionController::class, 'index'])->name('transaction.index');

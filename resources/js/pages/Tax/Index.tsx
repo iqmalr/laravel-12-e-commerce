@@ -9,6 +9,14 @@ import {
     AlertDialogTitle,
     AlertDialogTrigger,
 } from '@/components/ui/alert-dialog';
+import {
+    DropdownMenu,
+    DropdownMenuContent,
+    DropdownMenuItem,
+    DropdownMenuLabel,
+    DropdownMenuSeparator,
+    DropdownMenuTrigger,
+} from "@/components/ui/dropdown-menu"
 import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
@@ -18,7 +26,7 @@ import AppLayout from '@/layouts/app-layout';
 import { type BreadcrumbItem } from '@/types';
 import { PageProps } from '@/types/page-props';
 import { Head, Link, useForm } from '@inertiajs/react';
-import { Edit, Percent, Plus, RotateCcw, Trash2 } from 'lucide-react';
+import { Edit, MoreHorizontal, Percent, Plus, Trash2 } from 'lucide-react';
 
 const breadcrumbs: BreadcrumbItem[] = [
     {
@@ -40,7 +48,7 @@ interface TaxPageProps extends PageProps {
 }
 
 export default function Index({ tax }: TaxPageProps) {
-    const { delete: destroy, post } = useForm();
+    const { delete: destroy } = useForm();
 
     function deleteTax(id: string) {
         destroy(`/tax/${id}`, {
@@ -48,9 +56,6 @@ export default function Index({ tax }: TaxPageProps) {
         });
     }
 
-    function restoreTax(id: string) {
-        post(`/tax/${id}/restore`);
-    }
     const activeTax = tax?.filter((tax) => !tax.deleted_at);
     const inactiveTax = tax?.filter((tax) => tax.deleted_at);
 
@@ -65,12 +70,12 @@ export default function Index({ tax }: TaxPageProps) {
                             <Percent className="text-primary h-6 w-6" />
                             <h1 className="text-3xl font-bold tracking-tight">Tax Management</h1>
                         </div>
-                        <p className="text-muted-foreground">Kelola pajak dalam sistem Anda</p>
+                        <p className="text-muted-foreground">Manage taxes in your system</p>
                     </div>
                     <Link href="/tax/create">
                         <Button size="lg" className="shadow-sm">
                             <Plus className="mr-2 h-4 w-4" />
-                            Tambah Tax Baru
+                            Add New Tax
                         </Button>
                     </Link>
                 </div>
@@ -80,7 +85,7 @@ export default function Index({ tax }: TaxPageProps) {
                 <div className="grid grid-cols-1 gap-4 md:grid-cols-3">
                     <Card>
                         <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-                            <CardTitle className="text-sm font-medium">Total Tax</CardTitle>
+                            <CardTitle className="text-sm font-medium">Total Taxes</CardTitle>
                             <Percent className="text-muted-foreground h-4 w-4" />
                         </CardHeader>
                         <CardContent>
@@ -89,7 +94,7 @@ export default function Index({ tax }: TaxPageProps) {
                     </Card>
                     <Card>
                         <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-                            <CardTitle className="text-sm font-medium">Tax Aktif</CardTitle>
+                            <CardTitle className="text-sm font-medium">Active Taxes</CardTitle>
                             <div className="h-2 w-2 rounded-full bg-green-500"></div>
                         </CardHeader>
                         <CardContent>
@@ -98,7 +103,7 @@ export default function Index({ tax }: TaxPageProps) {
                     </Card>
                     <Card>
                         <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-                            <CardTitle className="text-sm font-medium">Tax Nonaktif</CardTitle>
+                            <CardTitle className="text-sm font-medium">Inactive Taxes</CardTitle>
                             <div className="h-2 w-2 rounded-full bg-red-500"></div>
                         </CardHeader>
                         <CardContent>
@@ -109,26 +114,26 @@ export default function Index({ tax }: TaxPageProps) {
 
                 <Card>
                     <CardHeader>
-                        <CardTitle>Daftar Pajak</CardTitle>
-                        <CardDescription>Daftar lengkap pajak yang terdaftar dalam sistem</CardDescription>
+                        <CardTitle>Tax List</CardTitle>
+                        <CardDescription>Complete list of taxes registered in the system</CardDescription>
                     </CardHeader>
                     <CardContent>
                         <div className="rounded-md border">
                             <Table>
                                 <TableHeader>
                                     <TableRow>
-                                        <TableHead>Nama Pajak</TableHead>
-                                        <TableHead>Persentase</TableHead>
-                                        <TableHead>Deskripsi</TableHead>
+                                        <TableHead>Tax Name</TableHead>
+                                        <TableHead>Percentage</TableHead>
+                                        <TableHead>Description</TableHead>
                                         <TableHead>Status</TableHead>
-                                        <TableHead className="text-right">Aksi</TableHead>
+                                        <TableHead className="text-right">Actions</TableHead>
                                     </TableRow>
                                 </TableHeader>
                                 <TableBody>
                                     {tax.length === 0 ? (
                                         <TableRow>
                                             <TableCell colSpan={5} className="text-muted-foreground py-8 text-center">
-                                                Belum ada data pajak
+                                                No tax data available
                                             </TableCell>
                                         </TableRow>
                                     ) : (
@@ -153,56 +158,58 @@ export default function Index({ tax }: TaxPageProps) {
                                                 </TableCell>
                                                 <TableCell>
                                                     <Badge variant={item.deleted_at ? 'destructive' : 'default'}>
-                                                        {item.deleted_at ? 'Nonaktif' : 'Aktif'}
+                                                        {item.deleted_at ? 'Inactive' : 'Active'}
                                                     </Badge>
                                                 </TableCell>
                                                 <TableCell className="text-right">
-                                                    <div className="flex items-center justify-end gap-2">
+                                                    <div className="flex items-center justify-end">
                                                         {!item.deleted_at ? (
-                                                            <>
-                                                                <Link href={`/tax/${item.id}/edit`}>
-                                                                    <Button variant="outline" size="sm" className="h-8">
-                                                                        <Edit className="mr-1 h-3 w-3" />
-                                                                        Edit
+                                                            <DropdownMenu>
+                                                                <DropdownMenuTrigger asChild>
+                                                                    <Button variant="ghost" className="h-8 w-8 p-0">
+                                                                        <MoreHorizontal className="h-4 w-4" />
                                                                     </Button>
-                                                                </Link>
-                                                                <AlertDialog>
-                                                                    <AlertDialogTrigger asChild>
-                                                                        <Button variant="destructive" size="sm" className="h-8">
-                                                                            <Trash2 className="mr-1 h-3 w-3" />
-                                                                            Hapus
-                                                                        </Button>
-                                                                    </AlertDialogTrigger>
-                                                                    <AlertDialogContent>
-                                                                        <AlertDialogHeader>
-                                                                            <AlertDialogTitle>Konfirmasi Penghapusan</AlertDialogTitle>
-                                                                            <AlertDialogDescription>
-                                                                                Apakah Anda yakin ingin menghapus tax <strong>{item.name}</strong>?
-                                                                                Tindakan ini dapat dibatalkan dengan memulihkan data.
-                                                                            </AlertDialogDescription>
-                                                                        </AlertDialogHeader>
-                                                                        <AlertDialogFooter>
-                                                                            <AlertDialogCancel>Batal</AlertDialogCancel>
-                                                                            <AlertDialogAction
-                                                                                className="bg-destructive hover:bg-destructive/90 text-white"
-                                                                                onClick={() => deleteTax(item.id)}
+                                                                </DropdownMenuTrigger>
+                                                                <DropdownMenuContent align="end" className="w-[160px]">
+                                                                    <DropdownMenuLabel>Actions</DropdownMenuLabel>
+                                                                    <DropdownMenuSeparator />
+                                                                    {/* Delete */}
+                                                                    <AlertDialog>
+                                                                        <AlertDialogTrigger asChild>
+                                                                            <DropdownMenuItem
+                                                                                onSelect={(e) => e.preventDefault()}
+                                                                                className="bg-red-600 focus:bg-red-400 cursor-pointer"
                                                                             >
-                                                                                Ya, Hapus
-                                                                            </AlertDialogAction>
-                                                                        </AlertDialogFooter>
-                                                                    </AlertDialogContent>
-                                                                </AlertDialog>
-                                                            </>
+                                                                                <Trash2 className="mr-2 h-4 w-4 text-foreground" />
+                                                                                Delete Tax
+                                                                            </DropdownMenuItem>
+                                                                        </AlertDialogTrigger>
+                                                                        <AlertDialogContent>
+                                                                            <AlertDialogHeader>
+                                                                                <AlertDialogTitle>Delete Confirmation</AlertDialogTitle>
+                                                                                <AlertDialogDescription>
+                                                                                    Are you sure you want to delete tax{" "}
+                                                                                    <strong className="font-semibold">{item.name}</strong>?
+                                                                                    <br />
+                                                                                    <br />
+                                                                                    This action can be undone by restoring the data.
+                                                                                </AlertDialogDescription>
+                                                                            </AlertDialogHeader>
+                                                                            <AlertDialogFooter>
+                                                                                <AlertDialogCancel>Cancel</AlertDialogCancel>
+                                                                                <AlertDialogAction
+                                                                                    className="bg-red-600 hover:bg-red-700 focus:ring-red-600"
+                                                                                    onClick={() => deleteTax(item.id)}
+                                                                                >
+                                                                                    Yes, Delete
+                                                                                </AlertDialogAction>
+                                                                            </AlertDialogFooter>
+                                                                        </AlertDialogContent>
+                                                                    </AlertDialog>
+                                                                </DropdownMenuContent>
+                                                            </DropdownMenu>
                                                         ) : (
-                                                            <Button
-                                                                variant="outline"
-                                                                size="sm"
-                                                                className="h-8 border-green-200 text-green-700 hover:bg-green-50"
-                                                                onClick={() => restoreTax(item.id)}
-                                                            >
-                                                                <RotateCcw className="mr-1 h-3 w-3" />
-                                                                Pulihkan
-                                                            </Button>
+                                                            <span className="text-muted-foreground text-sm italic">Deleted</span>
                                                         )}
                                                     </div>
                                                 </TableCell>

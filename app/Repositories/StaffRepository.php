@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Services;
+namespace App\Repositories;
 
 use App\Models\User;
 use App\Repositories\Interfaces\StaffRepositoryInterface;
@@ -11,18 +11,16 @@ use Illuminate\Pagination\LengthAwarePaginator;
 use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\Hash;
 
-class StaffService implements StaffRepositoryInterface
+class StaffRepository implements StaffRepositoryInterface
 {
     /**
      * Get all staff members
      */
-    public function __construct(protected StaffRepositoryInterface $staffRepository)
-    {
-    }
-
     public function getAll(): Collection
     {
-        return $this->staffRepository->getAll();
+        return User::withTrashed()
+            ->orderBy('created_at', 'desc')
+            ->get();
     }
 
     /**
@@ -30,27 +28,72 @@ class StaffService implements StaffRepositoryInterface
      */
     public function getAllPaginated(array $filters = []): LengthAwarePaginator
     {
-        return $this->staffRepository->getAllPaginated($filters);
+        $query = User::withTrashed();
+
+        // Apply search filter
+        if (!empty($filters['search'])) {
+            $search = $filters['search'];
+            $query->where(function ($q) use ($search) {
+                $q->where('name', 'like', "%{$search}%")
+                    ->orWhere('username', 'like', "%{$search}%")
+                    ->orWhere('email', 'like', "%{$search}%");
+            });
+        }
+
+        // Apply status filter
+        if (!empty($filters['status'])) {
+            match ($filters['status']) {
+                'active' => $query->whereNull('deleted_at'),
+                'inactive' => $query->whereNotNull('deleted_at'),
+                default => null, // 'all' - no filter needed
+            };
+        }
+
+        // Apply sorting
+        $sortBy = $filters['sort_by'] ?? 'created_at';
+        $sortDirection = $filters['sort_direction'] ?? 'desc';
+
+        $allowedSortFields = ['name', 'username', 'email', 'created_at', 'updated_at'];
+        if (in_array($sortBy, $allowedSortFields)) {
+            $query->orderBy($sortBy, $sortDirection);
+        }
+
+        // Default page size
+        $perPage = min($filters['per_page'] ?? 10, 100); // Max 100 items per page
+
+        return $query->paginate($perPage);
     }
 
     public function find(string $id): User
     {
-        return $this->staffRepository->find($id);
+        return User::findOrFail($id);
     }
 
     public function findWithTrashed(string $id): Collection|Model|SoftDeletes
     {
-        return $this->staffRepository->findWithTrashed($id);
+        return User::withTrashed()->findOrFail($id);
     }
 
     public function create(array $data): User
     {
-        return $this->staffRepository->create($data);
+        $data['password'] = Hash::make($data['password']);
+
+        return User::create($data);
     }
 
     public function update(string $id, array $data): User
     {
-        return $this->staffRepository->update($id, $data);
+        $staff = $this->find($id);
+
+        if (!empty($data['password'])) {
+            $data['password'] = Hash::make($data['password']);
+        } else {
+            unset($data['password']);
+        }
+
+        $staff->update($data);
+
+        return $staff->refresh();
     }
 
     /**
@@ -58,7 +101,9 @@ class StaffService implements StaffRepositoryInterface
      */
     public function delete(string $id): bool
     {
-        return $this->staffRepository->delete($id);
+        $staff = $this->find($id);
+
+        return $staff->delete();
     }
 
     /**
@@ -66,7 +111,9 @@ class StaffService implements StaffRepositoryInterface
      */
     public function restore(string $id): bool
     {
-        return $this->staffRepository->restore($id);
+        $staff = $this->findWithTrashed($id);
+
+        return $staff->restore();
     }
 
     /**
@@ -74,7 +121,9 @@ class StaffService implements StaffRepositoryInterface
      */
     public function forceDelete(string $id): bool
     {
-        return $this->staffRepository->forceDelete($id);
+        $staff = $this->findWithTrashed($id);
+
+        return $staff->forceDelete();
     }
 
     /**
@@ -82,20 +131,17 @@ class StaffService implements StaffRepositoryInterface
      */
     public function getStatistics(): array
     {
-        $total = $this->staffRepository->getAll()->count();
-        $active = $this->staffRepository->search(['status' => 'active'])->count();
-        $inactive = $this->staffRepository->search(['status' => 'inactive'])->count();
+        $total = User::withTrashed()->count();
+        $active = User::whereNull('deleted_at')->count();
+        $inactive = User::whereNotNull('deleted_at')->count();
 
+        // Recently added (last 30 days)
         $thirtyDaysAgo = Carbon::now()->subDays(30);
-        $recentlyAdded = $this->staffRepository->search([
-            'created_from' => $thirtyDaysAgo
-        ])->count();
+        $recentlyAdded = User::where('created_at', '>=', $thirtyDaysAgo)->count();
 
+        // Growth rate calculation (comparing last 30 days vs previous 30 days)
         $sixtyDaysAgo = Carbon::now()->subDays(60);
-        $previousPeriod = $this->staffRepository->search([
-            'created_from' => $sixtyDaysAgo,
-            'created_to'   => $thirtyDaysAgo
-        ])->count();
+        $previousPeriod = User::whereBetween('created_at', [$sixtyDaysAgo, $thirtyDaysAgo])->count();
 
         $growthRate = 0;
         if ($previousPeriod > 0) {
@@ -116,10 +162,12 @@ class StaffService implements StaffRepositoryInterface
      */
     public function bulkAction(string $action, array $staffIds): int
     {
+        $query = User::withTrashed()->whereIn('id', $staffIds);
+
         return match ($action) {
-            'delete' => collect($staffIds)->map(fn($id) => $this->delete($id))->count(),
-            'restore' => collect($staffIds)->map(fn($id) => $this->restore($id))->count(),
-            'force_delete' => collect($staffIds)->map(fn($id) => $this->forceDelete($id))->count(),
+            'delete' => $query->whereNull('deleted_at')->update(['deleted_at' => now()]),
+            'restore' => $query->whereNotNull('deleted_at')->update(['deleted_at' => null]),
+            'force_delete' => $query->forceDelete(),
             default => 0,
         };
     }
@@ -168,7 +216,8 @@ class StaffService implements StaffRepositoryInterface
     public function exportData(array $filters = [])
     {
         $filename = 'staff-export-' . now()->format('Y-m-d-H-i-s') . '.csv';
-        $staff = $this->staffRepository->search($filters);
+
+        $staff = $this->search($filters);
 
         $headers = [
             'Content-Type' => 'text/csv',
@@ -177,7 +226,18 @@ class StaffService implements StaffRepositoryInterface
 
         $callback = function () use ($staff) {
             $file = fopen('php://output', 'w');
-            fputcsv($file, ['ID','Name','Username','Email','Status','Created At','Updated At','Deleted At']);
+
+            // CSV Headers
+            fputcsv($file, [
+                'ID',
+                'Name',
+                'Username',
+                'Email',
+                'Status',
+                'Created At',
+                'Updated At',
+                'Deleted At',
+            ]);
 
             foreach ($staff as $member) {
                 fputcsv($file, [
