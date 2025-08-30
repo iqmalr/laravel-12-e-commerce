@@ -4,6 +4,8 @@ namespace App\Services;
 
 use App\Models\User;
 use Illuminate\Database\Eloquent\Collection;
+use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Pagination\LengthAwarePaginator;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Carbon;
@@ -61,25 +63,16 @@ class StaffService
         return $query->paginate($perPage);
     }
 
-    /**
-     * Find staff by ID
-     */
     public function find(string $id): User
     {
         return User::findOrFail($id);
     }
 
-    /**
-     * Find staff including soft deleted
-     */
-    public function findWithTrashed(string $id): User
+    public function findWithTrashed(string $id): Collection|Model|SoftDeletes
     {
         return User::withTrashed()->findOrFail($id);
     }
 
-    /**
-     * Create new staff
-     */
     public function create(array $data): User
     {
         $data['password'] = Hash::make($data['password']);
@@ -87,14 +80,10 @@ class StaffService
         return User::create($data);
     }
 
-    /**
-     * Update staff
-     */
     public function update(string $id, array $data): User
     {
         $staff = $this->find($id);
 
-        // Hash password if provided
         if (!empty($data['password'])) {
             $data['password'] = Hash::make($data['password']);
         } else {
@@ -240,26 +229,25 @@ class StaffService
             // CSV Headers
             fputcsv($file, [
                 'ID',
-                'Nama',
+                'Name',
                 'Username',
                 'Email',
                 'Status',
-                'Tanggal Dibuat',
-                'Tanggal Diperbarui',
-                'Tanggal Dihapus',
+                'Created At',
+                'Updated At',
+                'Deleted At',
             ]);
 
-            // CSV Data
             foreach ($staff as $member) {
                 fputcsv($file, [
                     $member->id,
                     $member->name,
                     $member->username,
                     $member->email,
-                    $member->deleted_at ? 'Nonaktif' : 'Aktif',
-                    $member->created_at?->format('d/m/Y H:i:s'),
-                    $member->updated_at?->format('d/m/Y H:i:s'),
-                    $member->deleted_at?->format('d/m/Y H:i:s'),
+                    $member->deleted_at ? 'Inactive' : 'Active',
+                    $member->created_at?->format('Y-m-d H:i:s'),
+                    $member->updated_at?->format('Y-m-d H:i:s'),
+                    $member->deleted_at?->format('Y-m-d H:i:s'),
                 ]);
             }
 
@@ -267,35 +255,5 @@ class StaffService
         };
 
         return response()->stream($callback, 200, $headers);
-    }
-
-    /**
-     * Validate staff data
-     */
-    public function validateStaffData(array $data, ?string $excludeId = null): array
-    {
-        $errors = [];
-
-        // Check unique username
-        $usernameExists = User::withTrashed()
-            ->where('username', $data['username'])
-            ->when($excludeId, fn($q) => $q->where('id', '!=', $excludeId))
-            ->exists();
-
-        if ($usernameExists) {
-            $errors['username'] = 'Username sudah digunakan.';
-        }
-
-        // Check unique email
-        $emailExists = User::withTrashed()
-            ->where('email', $data['email'])
-            ->when($excludeId, fn($q) => $q->where('id', '!=', $excludeId))
-            ->exists();
-
-        if ($emailExists) {
-            $errors['email'] = 'Email sudah digunakan.';
-        }
-
-        return $errors;
     }
 }

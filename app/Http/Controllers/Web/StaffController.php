@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\Staff\StoreStaffRequest;
 use App\Http\Requests\Staff\UpdateStaffRequest;
 use App\Services\StaffService;
+use Illuminate\Http\JsonResponse;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Inertia\Inertia;
@@ -28,11 +29,9 @@ class StaffController extends Controller
     {
         $filters = $request->only(['search', 'status', 'per_page', 'sort_by', 'sort_direction']);
 
-        // Default to client-side handling (return all data)
         $useServerPagination = $request->boolean('server_pagination', false);
 
         if ($useServerPagination) {
-            // Server-side pagination and filtering
             $staff = $this->staffService->getAllPaginated($filters);
 
             return Inertia::render('Staff/Index', [
@@ -42,7 +41,6 @@ class StaffController extends Controller
             ]);
         }
 
-        // Client-side handling (current implementation)
         $staff = $this->staffService->getAll();
 
         return Inertia::render('Staff/Index', [
@@ -52,29 +50,20 @@ class StaffController extends Controller
         ]);
     }
 
-    /**
-     * Show the form for creating a new resource.
-     */
     public function create(): Response
     {
         return Inertia::render('Staff/Create');
     }
 
-    /**
-     * Store a newly created resource in storage.
-     */
     public function store(StoreStaffRequest $request): RedirectResponse
     {
         $this->staffService->create($request->validated());
 
         return redirect()
             ->route('staff.index')
-            ->with('success', 'Staff berhasil ditambahkan.');
+            ->with('success', 'Staff member has been added successfully.');
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     */
     public function edit($id): Response
     {
         $staff = $this->staffService->find($id);
@@ -82,21 +71,15 @@ class StaffController extends Controller
         return Inertia::render('Staff/Edit', compact('staff'));
     }
 
-    /**
-     * Update the specified resource in storage.
-     */
     public function update(UpdateStaffRequest $request, $id): RedirectResponse
     {
         $this->staffService->update($id, $request->validated());
 
         return redirect()
             ->route('staff.index')
-            ->with('success', 'Data staff berhasil diperbarui.');
+            ->with('success', 'Staff member has been updated successfully.');
     }
 
-    /**
-     * Remove the specified resource from storage (soft delete).
-     */
     public function destroy($id): RedirectResponse
     {
         $staff = $this->staffService->find($id);
@@ -105,12 +88,9 @@ class StaffController extends Controller
 
         return redirect()
             ->route('staff.index')
-            ->with('success', "Staff {$staff->name} berhasil dihapus.");
+            ->with('success', "Staff member {$staff->name} has been deleted.");
     }
 
-    /**
-     * Restore the specified resource (undo soft delete).
-     */
     public function restore($id): RedirectResponse
     {
         $staff = $this->staffService->findWithTrashed($id);
@@ -119,13 +99,10 @@ class StaffController extends Controller
 
         return redirect()
             ->route('staff.index')
-            ->with('success', "Staff {$staff->name} berhasil dipulihkan.");
+            ->with('success', "Staff member {$staff->name} has been restored.");
     }
 
-    /**
-     * Get staff statistics for dashboard or API
-     */
-    public function statistics(): \Illuminate\Http\JsonResponse
+    public function statistics(): JsonResponse
     {
         $stats = $this->staffService->getStatistics();
 
@@ -138,9 +115,6 @@ class StaffController extends Controller
         ]);
     }
 
-    /**
-     * Bulk actions for multiple staff members
-     */
     public function bulkAction(Request $request): RedirectResponse
     {
         $request->validate([
@@ -155,10 +129,10 @@ class StaffController extends Controller
         $count = $this->staffService->bulkAction($action, $staffIds);
 
         $message = match($action) {
-            'delete' => "Berhasil menghapus {$count} staff.",
-            'restore' => "Berhasil memulihkan {$count} staff.",
-            'activate' => "Berhasil mengaktifkan {$count} staff.",
-            default => "Aksi berhasil dilakukan pada {$count} staff.",
+            'delete' => "Successfully deleted {$count} staff member(s).",
+            'restore' => "Successfully restored {$count} staff member(s).",
+            'activate' => "Successfully activated {$count} staff member(s).",
+            default => "Action completed for {$count} staff member(s).",
         };
 
         return redirect()
@@ -166,9 +140,6 @@ class StaffController extends Controller
             ->with('success', $message);
     }
 
-    /**
-     * Export staff data
-     */
     public function export(Request $request)
     {
         $filters = $request->only(['search', 'status']);
