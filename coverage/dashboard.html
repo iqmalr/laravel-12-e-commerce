@@ -1,0 +1,474 @@
+<!DOCTYPE html>
+<html lang="en">
+ <head>
+  <meta charset="UTF-8">
+  <title>Dashboard for D:\projects\laravel-12-e-commerce\app</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link href="_css/bootstrap.min.css?v=11.0.11" rel="stylesheet" type="text/css">
+  <link href="_css/nv.d3.min.css?v=11.0.11" rel="stylesheet" type="text/css">
+  <link href="_css/style.css?v=11.0.11" rel="stylesheet" type="text/css">
+  <link href="_css/custom.css" rel="stylesheet" type="text/css">
+ </head>
+ <body>
+  <header>
+   <div class="container-fluid">
+    <div class="row">
+     <div class="col-md-12">
+      <nav aria-label="breadcrumb">
+       <ol class="breadcrumb">
+         <li class="breadcrumb-item"><a href="index.html">D:\projects\laravel-12-e-commerce\app</a></li>
+         <li class="breadcrumb-item active">(Dashboard)</li>
+
+       </ol>
+      </nav>
+     </div>
+    </div>
+   </div>
+  </header>
+  <div class="container-fluid">
+   <div class="row">
+    <div class="col-md-12">
+     <h2>Classes</h2>
+    </div>
+   </div>
+   <div class="row">
+    <div class="col-md-6">
+     <h3>Coverage Distribution</h3>
+     <div id="classCoverageDistribution" style="height: 300px;">
+       <svg></svg>
+     </div>
+    </div>
+    <div class="col-md-6">
+     <h3>Complexity</h3>
+     <div id="classComplexity" style="height: 300px;">
+       <svg></svg>
+     </div>
+    </div>
+   </div>
+   <div class="row">
+    <div class="col-md-6">
+     <h3>Insufficient Coverage</h3>
+     <div class="scrollbox">
+      <table class="table">
+       <thead>
+        <tr>
+         <th>Class</th>
+         <th class="text-right">Coverage</th>
+        </tr>
+       </thead>
+       <tbody>
+       <tr><td><a href="Http/Controllers/Auth/ConfirmablePasswordController.php.html#13">App\Http\Controllers\Auth\ConfirmablePasswordController</a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Http/Controllers/Auth/EmailVerificationNotificationController.php.html#9">App\Http\Controllers\Auth\EmailVerificationNotificationController</a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Http/Controllers/Auth/EmailVerificationPromptController.php.html#11">App\Http\Controllers\Auth\EmailVerificationPromptController</a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Http/Controllers/Auth/NewPasswordController.php.html#17">App\Http\Controllers\Auth\NewPasswordController</a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Http/Controllers/Auth/VerifyEmailController.php.html#10">App\Http\Controllers\Auth\VerifyEmailController</a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Http/Controllers/Settings/PasswordController.php.html#13">App\Http\Controllers\Settings\PasswordController</a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Http/Controllers/Settings/ProfileController.php.html#14">App\Http\Controllers\Settings\ProfileController</a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Http/Controllers/Web/DashboardController.php.html#14">App\Http\Controllers\Web\DashboardController</a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Http/Controllers/Web/ProductController.php.html#14">App\Http\Controllers\Web\ProductController</a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Http/Controllers/Web/StaffController.php.html#15">App\Http\Controllers\Web\StaffController</a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Http/Controllers/Web/TaxController.php.html#14">App\Http\Controllers\Web\TaxController</a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Http/Controllers/Web/TransactionController.php.html#19">App\Http\Controllers\Web\TransactionController</a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Http/Requests/Settings/ProfileUpdateRequest.php.html#10">App\Http\Requests\Settings\ProfileUpdateRequest</a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Http/Requests/Staff/StoreStaffRequest.php.html#7">App\Http\Requests\Staff\StoreStaffRequest</a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Http/Requests/Staff/UpdateStaffRequest.php.html#7">App\Http\Requests\Staff\UpdateStaffRequest</a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Http/Requests/Tax/TaxRequest.php.html#7">App\Http\Requests\Tax\TaxRequest</a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Models/Customer.php.html#9">App\Models\Customer</a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Models/Product.php.html#10">App\Models\Product</a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Models/Role.php.html#8">App\Models\Role</a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Models/Tax.php.html#11">App\Models\Tax</a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Models/Transaction.php.html#9">App\Models\Transaction</a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Models/TransactionItem.php.html#9">App\Models\TransactionItem</a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Repositories/StaffRepository.php.html#14">App\Repositories\StaffRepository</a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Services/StaffService.php.html#14">App\Services\StaffService</a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Services/TaxService.php.html#10">App\Services\TaxService</a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Repositories/TaxRepository.php.html#11">App\Repositories\TaxRepository</a></td><td class="text-right">20%</td></tr>
+       <tr><td><a href="Http/Controllers/Auth/PasswordResetLinkController.php.html#12">App\Http\Controllers\Auth\PasswordResetLinkController</a></td><td class="text-right">30%</td></tr>
+       <tr><td><a href="Models/User.php.html#14">App\Models\User</a></td><td class="text-right">60%</td></tr>
+       <tr><td><a href="Http/Requests/Auth/LoginRequest.php.html#12">App\Http\Requests\Auth\LoginRequest</a></td><td class="text-right">61%</td></tr>
+       <tr><td><a href="Http/Controllers/Auth/RegisteredUserController.php.html#16">App\Http\Controllers\Auth\RegisteredUserController</a></td><td class="text-right">78%</td></tr>
+
+       </tbody>
+      </table>
+     </div>
+    </div>
+    <div class="col-md-6">
+     <h3>Project Risks</h3>
+     <div class="scrollbox">
+      <table class="table">
+       <thead>
+        <tr>
+         <th>Class</th>
+         <th class="text-right"><abbr title="Change Risk Anti-Patterns (CRAP) Index">CRAP</abbr></th>
+        </tr>
+       </thead>
+       <tbody>
+       <tr><td><a href="Repositories/StaffRepository.php.html#14">App\Repositories\StaffRepository</a></td><td class="text-right">1332</td></tr>
+       <tr><td><a href="Services/StaffService.php.html#14">App\Services\StaffService</a></td><td class="text-right">930</td></tr>
+       <tr><td><a href="Http/Controllers/Web/StaffController.php.html#15">App\Http\Controllers\Web\StaffController</a></td><td class="text-right">272</td></tr>
+       <tr><td><a href="Http/Controllers/Web/TransactionController.php.html#19">App\Http\Controllers\Web\TransactionController</a></td><td class="text-right">210</td></tr>
+       <tr><td><a href="Http/Controllers/Web/ProductController.php.html#14">App\Http\Controllers\Web\ProductController</a></td><td class="text-right">90</td></tr>
+       <tr><td><a href="Http/Controllers/Web/DashboardController.php.html#14">App\Http\Controllers\Web\DashboardController</a></td><td class="text-right">72</td></tr>
+       <tr><td><a href="Http/Controllers/Settings/ProfileController.php.html#14">App\Http\Controllers\Settings\ProfileController</a></td><td class="text-right">20</td></tr>
+       <tr><td><a href="Models/User.php.html#14">App\Models\User</a></td><td class="text-right">14</td></tr>
+       <tr><td><a href="Http/Controllers/Auth/ConfirmablePasswordController.php.html#13">App\Http\Controllers\Auth\ConfirmablePasswordController</a></td><td class="text-right">12</td></tr>
+       <tr><td><a href="Http/Controllers/Auth/NewPasswordController.php.html#17">App\Http\Controllers\Auth\NewPasswordController</a></td><td class="text-right">12</td></tr>
+       <tr><td><a href="Http/Controllers/Auth/VerifyEmailController.php.html#10">App\Http\Controllers\Auth\VerifyEmailController</a></td><td class="text-right">12</td></tr>
+       <tr><td><a href="Http/Requests/Auth/LoginRequest.php.html#12">App\Http\Requests\Auth\LoginRequest</a></td><td class="text-right">11</td></tr>
+       <tr><td><a href="Http/Controllers/Auth/EmailVerificationNotificationController.php.html#9">App\Http\Controllers\Auth\EmailVerificationNotificationController</a></td><td class="text-right">6</td></tr>
+       <tr><td><a href="Http/Controllers/Auth/EmailVerificationPromptController.php.html#11">App\Http\Controllers\Auth\EmailVerificationPromptController</a></td><td class="text-right">6</td></tr>
+
+       </tbody>
+      </table>
+     </div>
+    </div>
+   </div>
+   <div class="row">
+    <div class="col-md-12">
+     <h2>Methods</h2>
+    </div>
+   </div>
+   <div class="row">
+    <div class="col-md-6">
+     <h3>Coverage Distribution</h3>
+     <div id="methodCoverageDistribution" style="height: 300px;">
+       <svg></svg>
+     </div>
+    </div>
+    <div class="col-md-6">
+     <h3>Complexity</h3>
+     <div id="methodComplexity" style="height: 300px;">
+       <svg></svg>
+     </div>
+    </div>
+   </div>
+   <div class="row">
+    <div class="col-md-6">
+     <h3>Insufficient Coverage</h3>
+     <div class="scrollbox">
+      <table class="table">
+       <thead>
+        <tr>
+         <th>Method</th>
+         <th class="text-right">Coverage</th>
+        </tr>
+       </thead>
+       <tbody>
+       <tr><td><a href="Http/Controllers/Auth/ConfirmablePasswordController.php.html#18"><abbr title="App\Http\Controllers\Auth\ConfirmablePasswordController::show">show</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Http/Controllers/Auth/ConfirmablePasswordController.php.html#26"><abbr title="App\Http\Controllers\Auth\ConfirmablePasswordController::store">store</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Http/Controllers/Auth/EmailVerificationNotificationController.php.html#14"><abbr title="App\Http\Controllers\Auth\EmailVerificationNotificationController::store">store</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Http/Controllers/Auth/EmailVerificationPromptController.php.html#16"><abbr title="App\Http\Controllers\Auth\EmailVerificationPromptController::__invoke">__invoke</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Http/Controllers/Auth/NewPasswordController.php.html#22"><abbr title="App\Http\Controllers\Auth\NewPasswordController::create">create</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Http/Controllers/Auth/NewPasswordController.php.html#35"><abbr title="App\Http\Controllers\Auth\NewPasswordController::store">store</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Http/Controllers/Auth/PasswordResetLinkController.php.html#29"><abbr title="App\Http\Controllers\Auth\PasswordResetLinkController::store">store</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Http/Controllers/Auth/VerifyEmailController.php.html#15"><abbr title="App\Http\Controllers\Auth\VerifyEmailController::__invoke">__invoke</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Http/Controllers/Settings/PasswordController.php.html#18"><abbr title="App\Http\Controllers\Settings\PasswordController::edit">edit</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Http/Controllers/Settings/PasswordController.php.html#26"><abbr title="App\Http\Controllers\Settings\PasswordController::update">update</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Http/Controllers/Settings/ProfileController.php.html#19"><abbr title="App\Http\Controllers\Settings\ProfileController::edit">edit</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Http/Controllers/Settings/ProfileController.php.html#30"><abbr title="App\Http\Controllers\Settings\ProfileController::update">update</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Http/Controllers/Settings/ProfileController.php.html#46"><abbr title="App\Http\Controllers\Settings\ProfileController::destroy">destroy</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Http/Controllers/Web/DashboardController.php.html#16"><abbr title="App\Http\Controllers\Web\DashboardController::index">index</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Http/Controllers/Web/ProductController.php.html#16"><abbr title="App\Http\Controllers\Web\ProductController::index">index</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Http/Controllers/Web/ProductController.php.html#21"><abbr title="App\Http\Controllers\Web\ProductController::create">create</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Http/Controllers/Web/ProductController.php.html#27"><abbr title="App\Http\Controllers\Web\ProductController::store">store</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Http/Controllers/Web/ProductController.php.html#61"><abbr title="App\Http\Controllers\Web\ProductController::edit">edit</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Http/Controllers/Web/ProductController.php.html#71"><abbr title="App\Http\Controllers\Web\ProductController::update">update</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Http/Controllers/Web/ProductController.php.html#107"><abbr title="App\Http\Controllers\Web\ProductController::destroy">destroy</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Http/Controllers/Web/StaffController.php.html#19"><abbr title="App\Http\Controllers\Web\StaffController::__construct">__construct</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Http/Controllers/Web/StaffController.php.html#28"><abbr title="App\Http\Controllers\Web\StaffController::index">index</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Http/Controllers/Web/StaffController.php.html#53"><abbr title="App\Http\Controllers\Web\StaffController::create">create</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Http/Controllers/Web/StaffController.php.html#58"><abbr title="App\Http\Controllers\Web\StaffController::store">store</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Http/Controllers/Web/StaffController.php.html#67"><abbr title="App\Http\Controllers\Web\StaffController::edit">edit</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Http/Controllers/Web/StaffController.php.html#74"><abbr title="App\Http\Controllers\Web\StaffController::update">update</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Http/Controllers/Web/StaffController.php.html#83"><abbr title="App\Http\Controllers\Web\StaffController::destroy">destroy</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Http/Controllers/Web/StaffController.php.html#94"><abbr title="App\Http\Controllers\Web\StaffController::restore">restore</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Http/Controllers/Web/StaffController.php.html#105"><abbr title="App\Http\Controllers\Web\StaffController::statistics">statistics</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Http/Controllers/Web/StaffController.php.html#118"><abbr title="App\Http\Controllers\Web\StaffController::bulkAction">bulkAction</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Http/Controllers/Web/StaffController.php.html#143"><abbr title="App\Http\Controllers\Web\StaffController::export">export</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Http/Controllers/Web/TaxController.php.html#17"><abbr title="App\Http\Controllers\Web\TaxController::__construct">__construct</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Http/Controllers/Web/TaxController.php.html#22"><abbr title="App\Http\Controllers\Web\TaxController::index">index</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Http/Controllers/Web/TaxController.php.html#28"><abbr title="App\Http\Controllers\Web\TaxController::create">create</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Http/Controllers/Web/TaxController.php.html#33"><abbr title="App\Http\Controllers\Web\TaxController::store">store</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Http/Controllers/Web/TaxController.php.html#40"><abbr title="App\Http\Controllers\Web\TaxController::edit">edit</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Http/Controllers/Web/TaxController.php.html#47"><abbr title="App\Http\Controllers\Web\TaxController::update">update</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Http/Controllers/Web/TaxController.php.html#54"><abbr title="App\Http\Controllers\Web\TaxController::destroy">destroy</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Http/Controllers/Web/TaxController.php.html#59"><abbr title="App\Http\Controllers\Web\TaxController::restore">restore</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Http/Controllers/Web/TransactionController.php.html#24"><abbr title="App\Http\Controllers\Web\TransactionController::index">index</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Http/Controllers/Web/TransactionController.php.html#44"><abbr title="App\Http\Controllers\Web\TransactionController::create">create</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Http/Controllers/Web/TransactionController.php.html#79"><abbr title="App\Http\Controllers\Web\TransactionController::store">store</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Http/Controllers/Web/TransactionController.php.html#132"><abbr title="App\Http\Controllers\Web\TransactionController::show">show</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Http/Controllers/Web/TransactionController.php.html#184"><abbr title="App\Http\Controllers\Web\TransactionController::summary">summary</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Http/Controllers/Web/TransactionController.php.html#326"><abbr title="App\Http\Controllers\Web\TransactionController::search">search</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Http/Controllers/Web/TransactionController.php.html#377"><abbr title="App\Http\Controllers\Web\TransactionController::exportPdf">exportPdf</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Http/Controllers/Web/TransactionController.php.html#404"><abbr title="App\Http\Controllers\Web\TransactionController::calculateDayTotal">calculateDayTotal</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Http/Controllers/Web/TransactionController.php.html#419"><abbr title="App\Http\Controllers\Web\TransactionController::calculateMonthTotal">calculateMonthTotal</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Http/Controllers/Web/TransactionController.php.html#434"><abbr title="App\Http\Controllers\Web\TransactionController::printReceipt">printReceipt</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Http/Requests/Settings/ProfileUpdateRequest.php.html#17"><abbr title="App\Http\Requests\Settings\ProfileUpdateRequest::rules">rules</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Http/Requests/Staff/StoreStaffRequest.php.html#12"><abbr title="App\Http\Requests\Staff\StoreStaffRequest::authorize">authorize</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Http/Requests/Staff/StoreStaffRequest.php.html#22"><abbr title="App\Http\Requests\Staff\StoreStaffRequest::rules">rules</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Http/Requests/Staff/UpdateStaffRequest.php.html#12"><abbr title="App\Http\Requests\Staff\UpdateStaffRequest::authorize">authorize</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Http/Requests/Staff/UpdateStaffRequest.php.html#22"><abbr title="App\Http\Requests\Staff\UpdateStaffRequest::rules">rules</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Http/Requests/Tax/TaxRequest.php.html#9"><abbr title="App\Http\Requests\Tax\TaxRequest::authorize">authorize</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Http/Requests/Tax/TaxRequest.php.html#13"><abbr title="App\Http\Requests\Tax\TaxRequest::rules">rules</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Models/Customer.php.html#28"><abbr title="App\Models\Customer::creator">creator</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Models/Customer.php.html#33"><abbr title="App\Models\Customer::updater">updater</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Models/Customer.php.html#38"><abbr title="App\Models\Customer::user">user</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Models/Product.php.html#30"><abbr title="App\Models\Product::taxes">taxes</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Models/Role.php.html#16"><abbr title="App\Models\Role::users">users</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Models/Tax.php.html#26"><abbr title="App\Models\Tax::products">products</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Models/Transaction.php.html#24"><abbr title="App\Models\Transaction::customer">customer</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Models/Transaction.php.html#29"><abbr title="App\Models\Transaction::staff">staff</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Models/Transaction.php.html#34"><abbr title="App\Models\Transaction::items">items</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Models/Transaction.php.html#38"><abbr title="App\Models\Transaction::paymentMethod">paymentMethod</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Models/Transaction.php.html#43"><abbr title="App\Models\Transaction::transactionStatus">transactionStatus</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Models/TransactionItem.php.html#23"><abbr title="App\Models\TransactionItem::transaction">transaction</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Models/TransactionItem.php.html#28"><abbr title="App\Models\TransactionItem::product">product</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Models/User.php.html#76"><abbr title="App\Models\User::isSuperAdmin">isSuperAdmin</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Models/User.php.html#81"><abbr title="App\Models\User::isAdmin">isAdmin</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Models/User.php.html#86"><abbr title="App\Models\User::isCustomer">isCustomer</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Models/User.php.html#90"><abbr title="App\Models\User::getJWTIdentifier">getJWTIdentifier</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Models/User.php.html#94"><abbr title="App\Models\User::getJWTCustomClaims">getJWTCustomClaims</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Repositories/StaffRepository.php.html#19"><abbr title="App\Repositories\StaffRepository::getAll">getAll</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Repositories/StaffRepository.php.html#29"><abbr title="App\Repositories\StaffRepository::getAllPaginated">getAllPaginated</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Repositories/StaffRepository.php.html#67"><abbr title="App\Repositories\StaffRepository::find">find</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Repositories/StaffRepository.php.html#72"><abbr title="App\Repositories\StaffRepository::findWithTrashed">findWithTrashed</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Repositories/StaffRepository.php.html#77"><abbr title="App\Repositories\StaffRepository::create">create</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Repositories/StaffRepository.php.html#84"><abbr title="App\Repositories\StaffRepository::update">update</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Repositories/StaffRepository.php.html#102"><abbr title="App\Repositories\StaffRepository::delete">delete</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Repositories/StaffRepository.php.html#112"><abbr title="App\Repositories\StaffRepository::restore">restore</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Repositories/StaffRepository.php.html#122"><abbr title="App\Repositories\StaffRepository::forceDelete">forceDelete</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Repositories/StaffRepository.php.html#132"><abbr title="App\Repositories\StaffRepository::getStatistics">getStatistics</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Repositories/StaffRepository.php.html#163"><abbr title="App\Repositories\StaffRepository::bulkAction">bulkAction</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Repositories/StaffRepository.php.html#178"><abbr title="App\Repositories\StaffRepository::search">search</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Repositories/StaffRepository.php.html#216"><abbr title="App\Repositories\StaffRepository::exportData">exportData</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Repositories/TaxRepository.php.html#20"><abbr title="App\Repositories\TaxRepository::create">create</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Repositories/TaxRepository.php.html#25"><abbr title="App\Repositories\TaxRepository::find">find</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Repositories/TaxRepository.php.html#30"><abbr title="App\Repositories\TaxRepository::findWithTrashed">findWithTrashed</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Repositories/TaxRepository.php.html#34"><abbr title="App\Repositories\TaxRepository::update">update</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Repositories/TaxRepository.php.html#40"><abbr title="App\Repositories\TaxRepository::delete">delete</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Repositories/TaxRepository.php.html#45"><abbr title="App\Repositories\TaxRepository::restore">restore</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Repositories/TaxRepository.php.html#50"><abbr title="App\Repositories\TaxRepository::forceDelete">forceDelete</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Services/StaffService.php.html#19"><abbr title="App\Services\StaffService::__construct">__construct</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Services/StaffService.php.html#23"><abbr title="App\Services\StaffService::getAll">getAll</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Services/StaffService.php.html#31"><abbr title="App\Services\StaffService::getAllPaginated">getAllPaginated</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Services/StaffService.php.html#36"><abbr title="App\Services\StaffService::find">find</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Services/StaffService.php.html#41"><abbr title="App\Services\StaffService::findWithTrashed">findWithTrashed</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Services/StaffService.php.html#46"><abbr title="App\Services\StaffService::create">create</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Services/StaffService.php.html#51"><abbr title="App\Services\StaffService::update">update</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Services/StaffService.php.html#59"><abbr title="App\Services\StaffService::delete">delete</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Services/StaffService.php.html#67"><abbr title="App\Services\StaffService::restore">restore</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Services/StaffService.php.html#75"><abbr title="App\Services\StaffService::forceDelete">forceDelete</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Services/StaffService.php.html#83"><abbr title="App\Services\StaffService::getStatistics">getStatistics</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Services/StaffService.php.html#117"><abbr title="App\Services\StaffService::bulkAction">bulkAction</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Services/StaffService.php.html#130"><abbr title="App\Services\StaffService::search">search</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Services/StaffService.php.html#168"><abbr title="App\Services\StaffService::exportData">exportData</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Services/TaxService.php.html#12"><abbr title="App\Services\TaxService::__construct">__construct</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Services/TaxService.php.html#16"><abbr title="App\Services\TaxService::create">create</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Services/TaxService.php.html#21"><abbr title="App\Services\TaxService::getAll">getAll</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Services/TaxService.php.html#26"><abbr title="App\Services\TaxService::find">find</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Services/TaxService.php.html#31"><abbr title="App\Services\TaxService::findWithTrashed">findWithTrashed</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Services/TaxService.php.html#36"><abbr title="App\Services\TaxService::update">update</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Services/TaxService.php.html#41"><abbr title="App\Services\TaxService::delete">delete</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Services/TaxService.php.html#46"><abbr title="App\Services\TaxService::restore">restore</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Services/TaxService.php.html#51"><abbr title="App\Services\TaxService::forceDelete">forceDelete</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Http/Requests/Auth/LoginRequest.php.html#72"><abbr title="App\Http\Requests\Auth\LoginRequest::ensureIsNotRateLimited">ensureIsNotRateLimited</abbr></a></td><td class="text-right">20%</td></tr>
+       <tr><td><a href="Http/Requests/Auth/LoginRequest.php.html#40"><abbr title="App\Http\Requests\Auth\LoginRequest::authenticate">authenticate</abbr></a></td><td class="text-right">73%</td></tr>
+       <tr><td><a href="Http/Controllers/Auth/RegisteredUserController.php.html#31"><abbr title="App\Http\Controllers\Auth\RegisteredUserController::store">store</abbr></a></td><td class="text-right">76%</td></tr>
+       <tr><td><a href="Models/User.php.html#61"><abbr title="App\Models\User::boot">boot</abbr></a></td><td class="text-right">80%</td></tr>
+
+       </tbody>
+      </table>
+     </div>
+    </div>
+    <div class="col-md-6">
+     <h3>Project Risks</h3>
+     <div class="scrollbox">
+      <table class="table">
+       <thead>
+        <tr>
+         <th>Method</th>
+         <th class="text-right"><abbr title="Change Risk Anti-Patterns (CRAP) Index">CRAP</abbr></th>
+        </tr>
+       </thead>
+       <tbody>
+       <tr><td><a href="Repositories/StaffRepository.php.html#178"><abbr title="App\Repositories\StaffRepository::search">search</abbr></a></td><td class="text-right">110</td></tr>
+       <tr><td><a href="Services/StaffService.php.html#130"><abbr title="App\Services\StaffService::search">search</abbr></a></td><td class="text-right">110</td></tr>
+       <tr><td><a href="Http/Controllers/Web/DashboardController.php.html#16"><abbr title="App\Http\Controllers\Web\DashboardController::index">index</abbr></a></td><td class="text-right">72</td></tr>
+       <tr><td><a href="Repositories/StaffRepository.php.html#29"><abbr title="App\Repositories\StaffRepository::getAllPaginated">getAllPaginated</abbr></a></td><td class="text-right">56</td></tr>
+       <tr><td><a href="Http/Controllers/Web/StaffController.php.html#118"><abbr title="App\Http\Controllers\Web\StaffController::bulkAction">bulkAction</abbr></a></td><td class="text-right">30</td></tr>
+       <tr><td><a href="Repositories/StaffRepository.php.html#163"><abbr title="App\Repositories\StaffRepository::bulkAction">bulkAction</abbr></a></td><td class="text-right">30</td></tr>
+       <tr><td><a href="Services/StaffService.php.html#117"><abbr title="App\Services\StaffService::bulkAction">bulkAction</abbr></a></td><td class="text-right">30</td></tr>
+       <tr><td><a href="Http/Controllers/Auth/VerifyEmailController.php.html#15"><abbr title="App\Http\Controllers\Auth\VerifyEmailController::__invoke">__invoke</abbr></a></td><td class="text-right">12</td></tr>
+       <tr><td><a href="Http/Controllers/Web/ProductController.php.html#71"><abbr title="App\Http\Controllers\Web\ProductController::update">update</abbr></a></td><td class="text-right">12</td></tr>
+       <tr><td><a href="Http/Controllers/Web/TransactionController.php.html#79"><abbr title="App\Http\Controllers\Web\TransactionController::store">store</abbr></a></td><td class="text-right">12</td></tr>
+       <tr><td><a href="Http/Controllers/Web/TransactionController.php.html#184"><abbr title="App\Http\Controllers\Web\TransactionController::summary">summary</abbr></a></td><td class="text-right">12</td></tr>
+       <tr><td><a href="Repositories/StaffRepository.php.html#216"><abbr title="App\Repositories\StaffRepository::exportData">exportData</abbr></a></td><td class="text-right">12</td></tr>
+       <tr><td><a href="Services/StaffService.php.html#168"><abbr title="App\Services\StaffService::exportData">exportData</abbr></a></td><td class="text-right">12</td></tr>
+       <tr><td><a href="Http/Controllers/Auth/ConfirmablePasswordController.php.html#26"><abbr title="App\Http\Controllers\Auth\ConfirmablePasswordController::store">store</abbr></a></td><td class="text-right">6</td></tr>
+       <tr><td><a href="Http/Controllers/Auth/EmailVerificationNotificationController.php.html#14"><abbr title="App\Http\Controllers\Auth\EmailVerificationNotificationController::store">store</abbr></a></td><td class="text-right">6</td></tr>
+       <tr><td><a href="Http/Controllers/Auth/EmailVerificationPromptController.php.html#16"><abbr title="App\Http\Controllers\Auth\EmailVerificationPromptController::__invoke">__invoke</abbr></a></td><td class="text-right">6</td></tr>
+       <tr><td><a href="Http/Controllers/Auth/NewPasswordController.php.html#35"><abbr title="App\Http\Controllers\Auth\NewPasswordController::store">store</abbr></a></td><td class="text-right">6</td></tr>
+       <tr><td><a href="Http/Controllers/Settings/ProfileController.php.html#30"><abbr title="App\Http\Controllers\Settings\ProfileController::update">update</abbr></a></td><td class="text-right">6</td></tr>
+       <tr><td><a href="Http/Controllers/Web/ProductController.php.html#27"><abbr title="App\Http\Controllers\Web\ProductController::store">store</abbr></a></td><td class="text-right">6</td></tr>
+       <tr><td><a href="Http/Controllers/Web/StaffController.php.html#28"><abbr title="App\Http\Controllers\Web\StaffController::index">index</abbr></a></td><td class="text-right">6</td></tr>
+       <tr><td><a href="Repositories/StaffRepository.php.html#84"><abbr title="App\Repositories\StaffRepository::update">update</abbr></a></td><td class="text-right">6</td></tr>
+       <tr><td><a href="Repositories/StaffRepository.php.html#132"><abbr title="App\Repositories\StaffRepository::getStatistics">getStatistics</abbr></a></td><td class="text-right">6</td></tr>
+       <tr><td><a href="Services/StaffService.php.html#83"><abbr title="App\Services\StaffService::getStatistics">getStatistics</abbr></a></td><td class="text-right">6</td></tr>
+       <tr><td><a href="Http/Requests/Auth/LoginRequest.php.html#72"><abbr title="App\Http\Requests\Auth\LoginRequest::ensureIsNotRateLimited">ensureIsNotRateLimited</abbr></a></td><td class="text-right">4</td></tr>
+       <tr><td><a href="Http/Requests/Auth/LoginRequest.php.html#40"><abbr title="App\Http\Requests\Auth\LoginRequest::authenticate">authenticate</abbr></a></td><td class="text-right">3</td></tr>
+       <tr><td><a href="Models/User.php.html#61"><abbr title="App\Models\User::boot">boot</abbr></a></td><td class="text-right">2</td></tr>
+
+       </tbody>
+      </table>
+     </div>
+    </div>
+   </div>
+   <footer>
+    <hr/>
+    <p>
+     <small>Generated by <a href="https://github.com/sebastianbergmann/php-code-coverage" target="_top">php-code-coverage 11.0.11</a> using <a href="https://www.php.net/" target="_top">PHP 8.2.12</a> and <a href="https://phpunit.de/">PHPUnit 11.5.15</a> at Sat Sep 13 7:55:45 UTC 2025.</small>
+    </p>
+   </footer>
+  </div>
+  <script src="_js/jquery.min.js?v=11.0.11" type="text/javascript"></script>
+  <script src="_js/d3.min.js?v=11.0.11" type="text/javascript"></script>
+  <script src="_js/nv.d3.min.js?v=11.0.11" type="text/javascript"></script>
+  <script type="text/javascript">
+$(document).ready(function() {
+  nv.addGraph(function() {
+    var chart = nv.models.multiBarChart();
+    chart.tooltips(false)
+      .showControls(false)
+      .showLegend(false)
+      .reduceXTicks(false)
+      .staggerLabels(true)
+      .yAxis.tickFormat(d3.format('d'));
+
+    d3.select('#classCoverageDistribution svg')
+      .datum(getCoverageDistributionData([25,0,0,1,1,0,0,2,1,0,0,7], "Class Coverage"))
+      .transition().duration(500).call(chart);
+
+    nv.utils.windowResize(chart.update);
+
+    return chart;
+  });
+
+  nv.addGraph(function() {
+    var chart = nv.models.multiBarChart();
+    chart.tooltips(false)
+      .showControls(false)
+      .showLegend(false)
+      .reduceXTicks(false)
+      .staggerLabels(true)
+      .yAxis.tickFormat(d3.format('d'));
+
+    d3.select('#methodCoverageDistribution svg')
+      .datum(getCoverageDistributionData([117,0,0,1,0,0,0,0,2,1,0,16], "Method Coverage"))
+      .transition().duration(500).call(chart);
+
+    nv.utils.windowResize(chart.update);
+
+    return chart;
+  });
+
+  function getCoverageDistributionData(data, label) {
+    var labels = [
+      '0%',
+      '0-10%',
+      '10-20%',
+      '20-30%',
+      '30-40%',
+      '40-50%',
+      '50-60%',
+      '60-70%',
+      '70-80%',
+      '80-90%',
+      '90-100%',
+      '100%'
+    ];
+    var values = [];
+    $.each(labels, function(key) {
+      values.push({x: labels[key], y: data[key]});
+    });
+
+    return [
+      {
+        key: label,
+        values: values,
+        color: "#4572A7"
+      }
+    ];
+  }
+  nv.addGraph(function() {
+    var chart = nv.models.scatterChart()
+      .showDistX(true)
+      .showDistY(true)
+      .showLegend(false)
+      .forceX([0, 100]);
+    chart.tooltipContent(function(graph) {
+      return '<p>' + graph.point.class + '</p>';
+    });
+
+    chart.xAxis.axisLabel('Code Coverage (in percent)');
+    chart.yAxis.axisLabel('Cyclomatic Complexity');
+
+    d3.select('#classComplexity svg')
+      .datum(getComplexityData([[100,3,"<a href=\"Http\/Controllers\/Auth\/AuthenticatedSessionController.php.html#14\">App\\Http\\Controllers\\Auth\\AuthenticatedSessionController<\/a>"],[0,3,"<a href=\"Http\/Controllers\/Auth\/ConfirmablePasswordController.php.html#13\">App\\Http\\Controllers\\Auth\\ConfirmablePasswordController<\/a>"],[0,2,"<a href=\"Http\/Controllers\/Auth\/EmailVerificationNotificationController.php.html#9\">App\\Http\\Controllers\\Auth\\EmailVerificationNotificationController<\/a>"],[0,2,"<a href=\"Http\/Controllers\/Auth\/EmailVerificationPromptController.php.html#11\">App\\Http\\Controllers\\Auth\\EmailVerificationPromptController<\/a>"],[0,3,"<a href=\"Http\/Controllers\/Auth\/NewPasswordController.php.html#17\">App\\Http\\Controllers\\Auth\\NewPasswordController<\/a>"],[30,2,"<a href=\"Http\/Controllers\/Auth\/PasswordResetLinkController.php.html#12\">App\\Http\\Controllers\\Auth\\PasswordResetLinkController<\/a>"],[78.57142857142857,2,"<a href=\"Http\/Controllers\/Auth\/RegisteredUserController.php.html#16\">App\\Http\\Controllers\\Auth\\RegisteredUserController<\/a>"],[0,3,"<a href=\"Http\/Controllers\/Auth\/VerifyEmailController.php.html#10\">App\\Http\\Controllers\\Auth\\VerifyEmailController<\/a>"],[100,0,"<a href=\"Http\/Controllers\/Controller.php.html#5\">App\\Http\\Controllers\\Controller<\/a>"],[0,2,"<a href=\"Http\/Controllers\/Settings\/PasswordController.php.html#13\">App\\Http\\Controllers\\Settings\\PasswordController<\/a>"],[0,4,"<a href=\"Http\/Controllers\/Settings\/ProfileController.php.html#14\">App\\Http\\Controllers\\Settings\\ProfileController<\/a>"],[0,8,"<a href=\"Http\/Controllers\/Web\/DashboardController.php.html#14\">App\\Http\\Controllers\\Web\\DashboardController<\/a>"],[0,9,"<a href=\"Http\/Controllers\/Web\/ProductController.php.html#14\">App\\Http\\Controllers\\Web\\ProductController<\/a>"],[0,16,"<a href=\"Http\/Controllers\/Web\/StaffController.php.html#15\">App\\Http\\Controllers\\Web\\StaffController<\/a>"],[0,8,"<a href=\"Http\/Controllers\/Web\/TaxController.php.html#14\">App\\Http\\Controllers\\Web\\TaxController<\/a>"],[0,14,"<a href=\"Http\/Controllers\/Web\/TransactionController.php.html#19\">App\\Http\\Controllers\\Web\\TransactionController<\/a>"],[100,1,"<a href=\"Http\/Middleware\/HandleAppearance.php.html#10\">App\\Http\\Middleware\\HandleAppearance<\/a>"],[100,3,"<a href=\"Http\/Middleware\/HandleInertiaRequests.php.html#10\">App\\Http\\Middleware\\HandleInertiaRequests<\/a>"],[61.29032258064516,8,"<a href=\"Http\/Requests\/Auth\/LoginRequest.php.html#12\">App\\Http\\Requests\\Auth\\LoginRequest<\/a>"],[0,1,"<a href=\"Http\/Requests\/Settings\/ProfileUpdateRequest.php.html#10\">App\\Http\\Requests\\Settings\\ProfileUpdateRequest<\/a>"],[0,2,"<a href=\"Http\/Requests\/Staff\/StoreStaffRequest.php.html#7\">App\\Http\\Requests\\Staff\\StoreStaffRequest<\/a>"],[0,2,"<a href=\"Http\/Requests\/Staff\/UpdateStaffRequest.php.html#7\">App\\Http\\Requests\\Staff\\UpdateStaffRequest<\/a>"],[0,2,"<a href=\"Http\/Requests\/Tax\/TaxRequest.php.html#7\">App\\Http\\Requests\\Tax\\TaxRequest<\/a>"],[0,3,"<a href=\"Models\/Customer.php.html#9\">App\\Models\\Customer<\/a>"],[100,0,"<a href=\"Models\/PaymentMethod.php.html#8\">App\\Models\\PaymentMethod<\/a>"],[0,1,"<a href=\"Models\/Product.php.html#10\">App\\Models\\Product<\/a>"],[0,1,"<a href=\"Models\/Role.php.html#8\">App\\Models\\Role<\/a>"],[0,1,"<a href=\"Models\/Tax.php.html#11\">App\\Models\\Tax<\/a>"],[0,5,"<a href=\"Models\/Transaction.php.html#9\">App\\Models\\Transaction<\/a>"],[0,2,"<a href=\"Models\/TransactionItem.php.html#9\">App\\Models\\TransactionItem<\/a>"],[100,0,"<a href=\"Models\/TransactionStatus.php.html#7\">App\\Models\\TransactionStatus<\/a>"],[60,9,"<a href=\"Models\/User.php.html#14\">App\\Models\\User<\/a>"],[100,2,"<a href=\"Providers\/AppServiceProvider.php.html#11\">App\\Providers\\AppServiceProvider<\/a>"],[0,36,"<a href=\"Repositories\/StaffRepository.php.html#14\">App\\Repositories\\StaffRepository<\/a>"],[20,8,"<a href=\"Repositories\/TaxRepository.php.html#11\">App\\Repositories\\TaxRepository<\/a>"],[0,30,"<a href=\"Services\/StaffService.php.html#14\">App\\Services\\StaffService<\/a>"],[0,9,"<a href=\"Services\/TaxService.php.html#10\">App\\Services\\TaxService<\/a>"]], 'Class Complexity'))
+      .transition()
+      .duration(500)
+      .call(chart);
+
+    nv.utils.windowResize(chart.update);
+
+    return chart;
+  });
+
+  nv.addGraph(function() {
+    var chart = nv.models.scatterChart()
+      .showDistX(true)
+      .showDistY(true)
+      .showLegend(false)
+      .forceX([0, 100]);
+    chart.tooltipContent(function(graph) {
+      return '<p>' + graph.point.class + '</p>';
+    });
+
+    chart.xAxis.axisLabel('Code Coverage (in percent)');
+    chart.yAxis.axisLabel('Method Complexity');
+
+    d3.select('#methodComplexity svg')
+      .datum(getComplexityData([[100,1,"<a href=\"Http\/Controllers\/Auth\/AuthenticatedSessionController.php.html#19\">App\\Http\\Controllers\\Auth\\AuthenticatedSessionController::create<\/a>"],[100,1,"<a href=\"Http\/Controllers\/Auth\/AuthenticatedSessionController.php.html#30\">App\\Http\\Controllers\\Auth\\AuthenticatedSessionController::store<\/a>"],[100,1,"<a href=\"Http\/Controllers\/Auth\/AuthenticatedSessionController.php.html#40\">App\\Http\\Controllers\\Auth\\AuthenticatedSessionController::destroy<\/a>"],[0,1,"<a href=\"Http\/Controllers\/Auth\/ConfirmablePasswordController.php.html#18\">App\\Http\\Controllers\\Auth\\ConfirmablePasswordController::show<\/a>"],[0,2,"<a href=\"Http\/Controllers\/Auth\/ConfirmablePasswordController.php.html#26\">App\\Http\\Controllers\\Auth\\ConfirmablePasswordController::store<\/a>"],[0,2,"<a href=\"Http\/Controllers\/Auth\/EmailVerificationNotificationController.php.html#14\">App\\Http\\Controllers\\Auth\\EmailVerificationNotificationController::store<\/a>"],[0,2,"<a href=\"Http\/Controllers\/Auth\/EmailVerificationPromptController.php.html#16\">App\\Http\\Controllers\\Auth\\EmailVerificationPromptController::__invoke<\/a>"],[0,1,"<a href=\"Http\/Controllers\/Auth\/NewPasswordController.php.html#22\">App\\Http\\Controllers\\Auth\\NewPasswordController::create<\/a>"],[0,2,"<a href=\"Http\/Controllers\/Auth\/NewPasswordController.php.html#35\">App\\Http\\Controllers\\Auth\\NewPasswordController::store<\/a>"],[100,1,"<a href=\"Http\/Controllers\/Auth\/PasswordResetLinkController.php.html#17\">App\\Http\\Controllers\\Auth\\PasswordResetLinkController::create<\/a>"],[0,1,"<a href=\"Http\/Controllers\/Auth\/PasswordResetLinkController.php.html#29\">App\\Http\\Controllers\\Auth\\PasswordResetLinkController::store<\/a>"],[100,1,"<a href=\"Http\/Controllers\/Auth\/RegisteredUserController.php.html#21\">App\\Http\\Controllers\\Auth\\RegisteredUserController::create<\/a>"],[76.92307692307693,1,"<a href=\"Http\/Controllers\/Auth\/RegisteredUserController.php.html#31\">App\\Http\\Controllers\\Auth\\RegisteredUserController::store<\/a>"],[0,3,"<a href=\"Http\/Controllers\/Auth\/VerifyEmailController.php.html#15\">App\\Http\\Controllers\\Auth\\VerifyEmailController::__invoke<\/a>"],[0,1,"<a href=\"Http\/Controllers\/Settings\/PasswordController.php.html#18\">App\\Http\\Controllers\\Settings\\PasswordController::edit<\/a>"],[0,1,"<a href=\"Http\/Controllers\/Settings\/PasswordController.php.html#26\">App\\Http\\Controllers\\Settings\\PasswordController::update<\/a>"],[0,1,"<a href=\"Http\/Controllers\/Settings\/ProfileController.php.html#19\">App\\Http\\Controllers\\Settings\\ProfileController::edit<\/a>"],[0,2,"<a href=\"Http\/Controllers\/Settings\/ProfileController.php.html#30\">App\\Http\\Controllers\\Settings\\ProfileController::update<\/a>"],[0,1,"<a href=\"Http\/Controllers\/Settings\/ProfileController.php.html#46\">App\\Http\\Controllers\\Settings\\ProfileController::destroy<\/a>"],[0,8,"<a href=\"Http\/Controllers\/Web\/DashboardController.php.html#16\">App\\Http\\Controllers\\Web\\DashboardController::index<\/a>"],[0,1,"<a href=\"Http\/Controllers\/Web\/ProductController.php.html#16\">App\\Http\\Controllers\\Web\\ProductController::index<\/a>"],[0,1,"<a href=\"Http\/Controllers\/Web\/ProductController.php.html#21\">App\\Http\\Controllers\\Web\\ProductController::create<\/a>"],[0,2,"<a href=\"Http\/Controllers\/Web\/ProductController.php.html#27\">App\\Http\\Controllers\\Web\\ProductController::store<\/a>"],[0,1,"<a href=\"Http\/Controllers\/Web\/ProductController.php.html#61\">App\\Http\\Controllers\\Web\\ProductController::edit<\/a>"],[0,3,"<a href=\"Http\/Controllers\/Web\/ProductController.php.html#71\">App\\Http\\Controllers\\Web\\ProductController::update<\/a>"],[0,1,"<a href=\"Http\/Controllers\/Web\/ProductController.php.html#107\">App\\Http\\Controllers\\Web\\ProductController::destroy<\/a>"],[0,1,"<a href=\"Http\/Controllers\/Web\/StaffController.php.html#19\">App\\Http\\Controllers\\Web\\StaffController::__construct<\/a>"],[0,2,"<a href=\"Http\/Controllers\/Web\/StaffController.php.html#28\">App\\Http\\Controllers\\Web\\StaffController::index<\/a>"],[0,1,"<a href=\"Http\/Controllers\/Web\/StaffController.php.html#53\">App\\Http\\Controllers\\Web\\StaffController::create<\/a>"],[0,1,"<a href=\"Http\/Controllers\/Web\/StaffController.php.html#58\">App\\Http\\Controllers\\Web\\StaffController::store<\/a>"],[0,1,"<a href=\"Http\/Controllers\/Web\/StaffController.php.html#67\">App\\Http\\Controllers\\Web\\StaffController::edit<\/a>"],[0,1,"<a href=\"Http\/Controllers\/Web\/StaffController.php.html#74\">App\\Http\\Controllers\\Web\\StaffController::update<\/a>"],[0,1,"<a href=\"Http\/Controllers\/Web\/StaffController.php.html#83\">App\\Http\\Controllers\\Web\\StaffController::destroy<\/a>"],[0,1,"<a href=\"Http\/Controllers\/Web\/StaffController.php.html#94\">App\\Http\\Controllers\\Web\\StaffController::restore<\/a>"],[0,1,"<a href=\"Http\/Controllers\/Web\/StaffController.php.html#105\">App\\Http\\Controllers\\Web\\StaffController::statistics<\/a>"],[0,5,"<a href=\"Http\/Controllers\/Web\/StaffController.php.html#118\">App\\Http\\Controllers\\Web\\StaffController::bulkAction<\/a>"],[0,1,"<a href=\"Http\/Controllers\/Web\/StaffController.php.html#143\">App\\Http\\Controllers\\Web\\StaffController::export<\/a>"],[0,1,"<a href=\"Http\/Controllers\/Web\/TaxController.php.html#17\">App\\Http\\Controllers\\Web\\TaxController::__construct<\/a>"],[0,1,"<a href=\"Http\/Controllers\/Web\/TaxController.php.html#22\">App\\Http\\Controllers\\Web\\TaxController::index<\/a>"],[0,1,"<a href=\"Http\/Controllers\/Web\/TaxController.php.html#28\">App\\Http\\Controllers\\Web\\TaxController::create<\/a>"],[0,1,"<a href=\"Http\/Controllers\/Web\/TaxController.php.html#33\">App\\Http\\Controllers\\Web\\TaxController::store<\/a>"],[0,1,"<a href=\"Http\/Controllers\/Web\/TaxController.php.html#40\">App\\Http\\Controllers\\Web\\TaxController::edit<\/a>"],[0,1,"<a href=\"Http\/Controllers\/Web\/TaxController.php.html#47\">App\\Http\\Controllers\\Web\\TaxController::update<\/a>"],[0,1,"<a href=\"Http\/Controllers\/Web\/TaxController.php.html#54\">App\\Http\\Controllers\\Web\\TaxController::destroy<\/a>"],[0,1,"<a href=\"Http\/Controllers\/Web\/TaxController.php.html#59\">App\\Http\\Controllers\\Web\\TaxController::restore<\/a>"],[0,1,"<a href=\"Http\/Controllers\/Web\/TransactionController.php.html#24\">App\\Http\\Controllers\\Web\\TransactionController::index<\/a>"],[0,1,"<a href=\"Http\/Controllers\/Web\/TransactionController.php.html#44\">App\\Http\\Controllers\\Web\\TransactionController::create<\/a>"],[0,3,"<a href=\"Http\/Controllers\/Web\/TransactionController.php.html#79\">App\\Http\\Controllers\\Web\\TransactionController::store<\/a>"],[0,1,"<a href=\"Http\/Controllers\/Web\/TransactionController.php.html#132\">App\\Http\\Controllers\\Web\\TransactionController::show<\/a>"],[0,3,"<a href=\"Http\/Controllers\/Web\/TransactionController.php.html#184\">App\\Http\\Controllers\\Web\\TransactionController::summary<\/a>"],[0,1,"<a href=\"Http\/Controllers\/Web\/TransactionController.php.html#326\">App\\Http\\Controllers\\Web\\TransactionController::search<\/a>"],[0,1,"<a href=\"Http\/Controllers\/Web\/TransactionController.php.html#377\">App\\Http\\Controllers\\Web\\TransactionController::exportPdf<\/a>"],[0,1,"<a href=\"Http\/Controllers\/Web\/TransactionController.php.html#404\">App\\Http\\Controllers\\Web\\TransactionController::calculateDayTotal<\/a>"],[0,1,"<a href=\"Http\/Controllers\/Web\/TransactionController.php.html#419\">App\\Http\\Controllers\\Web\\TransactionController::calculateMonthTotal<\/a>"],[0,1,"<a href=\"Http\/Controllers\/Web\/TransactionController.php.html#434\">App\\Http\\Controllers\\Web\\TransactionController::printReceipt<\/a>"],[100,1,"<a href=\"Http\/Middleware\/HandleAppearance.php.html#17\">App\\Http\\Middleware\\HandleAppearance::handle<\/a>"],[100,1,"<a href=\"Http\/Middleware\/HandleInertiaRequests.php.html#26\">App\\Http\\Middleware\\HandleInertiaRequests::version<\/a>"],[100,2,"<a href=\"Http\/Middleware\/HandleInertiaRequests.php.html#38\">App\\Http\\Middleware\\HandleInertiaRequests::share<\/a>"],[100,1,"<a href=\"Http\/Requests\/Auth\/LoginRequest.php.html#17\">App\\Http\\Requests\\Auth\\LoginRequest::authorize<\/a>"],[100,1,"<a href=\"Http\/Requests\/Auth\/LoginRequest.php.html#27\">App\\Http\\Requests\\Auth\\LoginRequest::rules<\/a>"],[73.33333333333333,3,"<a href=\"Http\/Requests\/Auth\/LoginRequest.php.html#40\">App\\Http\\Requests\\Auth\\LoginRequest::authenticate<\/a>"],[20,2,"<a href=\"Http\/Requests\/Auth\/LoginRequest.php.html#72\">App\\Http\\Requests\\Auth\\LoginRequest::ensureIsNotRateLimited<\/a>"],[100,1,"<a href=\"Http\/Requests\/Auth\/LoginRequest.php.html#93\">App\\Http\\Requests\\Auth\\LoginRequest::throttleKey<\/a>"],[0,1,"<a href=\"Http\/Requests\/Settings\/ProfileUpdateRequest.php.html#17\">App\\Http\\Requests\\Settings\\ProfileUpdateRequest::rules<\/a>"],[0,1,"<a href=\"Http\/Requests\/Staff\/StoreStaffRequest.php.html#12\">App\\Http\\Requests\\Staff\\StoreStaffRequest::authorize<\/a>"],[0,1,"<a href=\"Http\/Requests\/Staff\/StoreStaffRequest.php.html#22\">App\\Http\\Requests\\Staff\\StoreStaffRequest::rules<\/a>"],[0,1,"<a href=\"Http\/Requests\/Staff\/UpdateStaffRequest.php.html#12\">App\\Http\\Requests\\Staff\\UpdateStaffRequest::authorize<\/a>"],[0,1,"<a href=\"Http\/Requests\/Staff\/UpdateStaffRequest.php.html#22\">App\\Http\\Requests\\Staff\\UpdateStaffRequest::rules<\/a>"],[0,1,"<a href=\"Http\/Requests\/Tax\/TaxRequest.php.html#9\">App\\Http\\Requests\\Tax\\TaxRequest::authorize<\/a>"],[0,1,"<a href=\"Http\/Requests\/Tax\/TaxRequest.php.html#13\">App\\Http\\Requests\\Tax\\TaxRequest::rules<\/a>"],[0,1,"<a href=\"Models\/Customer.php.html#28\">App\\Models\\Customer::creator<\/a>"],[0,1,"<a href=\"Models\/Customer.php.html#33\">App\\Models\\Customer::updater<\/a>"],[0,1,"<a href=\"Models\/Customer.php.html#38\">App\\Models\\Customer::user<\/a>"],[0,1,"<a href=\"Models\/Product.php.html#30\">App\\Models\\Product::taxes<\/a>"],[0,1,"<a href=\"Models\/Role.php.html#16\">App\\Models\\Role::users<\/a>"],[0,1,"<a href=\"Models\/Tax.php.html#26\">App\\Models\\Tax::products<\/a>"],[0,1,"<a href=\"Models\/Transaction.php.html#24\">App\\Models\\Transaction::customer<\/a>"],[0,1,"<a href=\"Models\/Transaction.php.html#29\">App\\Models\\Transaction::staff<\/a>"],[0,1,"<a href=\"Models\/Transaction.php.html#34\">App\\Models\\Transaction::items<\/a>"],[0,1,"<a href=\"Models\/Transaction.php.html#38\">App\\Models\\Transaction::paymentMethod<\/a>"],[0,1,"<a href=\"Models\/Transaction.php.html#43\">App\\Models\\Transaction::transactionStatus<\/a>"],[0,1,"<a href=\"Models\/TransactionItem.php.html#23\">App\\Models\\TransactionItem::transaction<\/a>"],[0,1,"<a href=\"Models\/TransactionItem.php.html#28\">App\\Models\\TransactionItem::product<\/a>"],[100,1,"<a href=\"Models\/User.php.html#48\">App\\Models\\User::casts<\/a>"],[80,2,"<a href=\"Models\/User.php.html#61\">App\\Models\\User::boot<\/a>"],[100,1,"<a href=\"Models\/User.php.html#71\">App\\Models\\User::role<\/a>"],[0,1,"<a href=\"Models\/User.php.html#76\">App\\Models\\User::isSuperAdmin<\/a>"],[0,1,"<a href=\"Models\/User.php.html#81\">App\\Models\\User::isAdmin<\/a>"],[0,1,"<a href=\"Models\/User.php.html#86\">App\\Models\\User::isCustomer<\/a>"],[0,1,"<a href=\"Models\/User.php.html#90\">App\\Models\\User::getJWTIdentifier<\/a>"],[0,1,"<a href=\"Models\/User.php.html#94\">App\\Models\\User::getJWTCustomClaims<\/a>"],[100,1,"<a href=\"Providers\/AppServiceProvider.php.html#16\">App\\Providers\\AppServiceProvider::register<\/a>"],[100,1,"<a href=\"Providers\/AppServiceProvider.php.html#31\">App\\Providers\\AppServiceProvider::boot<\/a>"],[0,1,"<a href=\"Repositories\/StaffRepository.php.html#19\">App\\Repositories\\StaffRepository::getAll<\/a>"],[0,7,"<a href=\"Repositories\/StaffRepository.php.html#29\">App\\Repositories\\StaffRepository::getAllPaginated<\/a>"],[0,1,"<a href=\"Repositories\/StaffRepository.php.html#67\">App\\Repositories\\StaffRepository::find<\/a>"],[0,1,"<a href=\"Repositories\/StaffRepository.php.html#72\">App\\Repositories\\StaffRepository::findWithTrashed<\/a>"],[0,1,"<a href=\"Repositories\/StaffRepository.php.html#77\">App\\Repositories\\StaffRepository::create<\/a>"],[0,2,"<a href=\"Repositories\/StaffRepository.php.html#84\">App\\Repositories\\StaffRepository::update<\/a>"],[0,1,"<a href=\"Repositories\/StaffRepository.php.html#102\">App\\Repositories\\StaffRepository::delete<\/a>"],[0,1,"<a href=\"Repositories\/StaffRepository.php.html#112\">App\\Repositories\\StaffRepository::restore<\/a>"],[0,1,"<a href=\"Repositories\/StaffRepository.php.html#122\">App\\Repositories\\StaffRepository::forceDelete<\/a>"],[0,2,"<a href=\"Repositories\/StaffRepository.php.html#132\">App\\Repositories\\StaffRepository::getStatistics<\/a>"],[0,5,"<a href=\"Repositories\/StaffRepository.php.html#163\">App\\Repositories\\StaffRepository::bulkAction<\/a>"],[0,10,"<a href=\"Repositories\/StaffRepository.php.html#178\">App\\Repositories\\StaffRepository::search<\/a>"],[0,3,"<a href=\"Repositories\/StaffRepository.php.html#216\">App\\Repositories\\StaffRepository::exportData<\/a>"],[100,1,"<a href=\"Repositories\/TaxRepository.php.html#13\">App\\Repositories\\TaxRepository::getAll<\/a>"],[0,1,"<a href=\"Repositories\/TaxRepository.php.html#20\">App\\Repositories\\TaxRepository::create<\/a>"],[0,1,"<a href=\"Repositories\/TaxRepository.php.html#25\">App\\Repositories\\TaxRepository::find<\/a>"],[0,1,"<a href=\"Repositories\/TaxRepository.php.html#30\">App\\Repositories\\TaxRepository::findWithTrashed<\/a>"],[0,1,"<a href=\"Repositories\/TaxRepository.php.html#34\">App\\Repositories\\TaxRepository::update<\/a>"],[0,1,"<a href=\"Repositories\/TaxRepository.php.html#40\">App\\Repositories\\TaxRepository::delete<\/a>"],[0,1,"<a href=\"Repositories\/TaxRepository.php.html#45\">App\\Repositories\\TaxRepository::restore<\/a>"],[0,1,"<a href=\"Repositories\/TaxRepository.php.html#50\">App\\Repositories\\TaxRepository::forceDelete<\/a>"],[0,1,"<a href=\"Services\/StaffService.php.html#19\">App\\Services\\StaffService::__construct<\/a>"],[0,1,"<a href=\"Services\/StaffService.php.html#23\">App\\Services\\StaffService::getAll<\/a>"],[0,1,"<a href=\"Services\/StaffService.php.html#31\">App\\Services\\StaffService::getAllPaginated<\/a>"],[0,1,"<a href=\"Services\/StaffService.php.html#36\">App\\Services\\StaffService::find<\/a>"],[0,1,"<a href=\"Services\/StaffService.php.html#41\">App\\Services\\StaffService::findWithTrashed<\/a>"],[0,1,"<a href=\"Services\/StaffService.php.html#46\">App\\Services\\StaffService::create<\/a>"],[0,1,"<a href=\"Services\/StaffService.php.html#51\">App\\Services\\StaffService::update<\/a>"],[0,1,"<a href=\"Services\/StaffService.php.html#59\">App\\Services\\StaffService::delete<\/a>"],[0,1,"<a href=\"Services\/StaffService.php.html#67\">App\\Services\\StaffService::restore<\/a>"],[0,1,"<a href=\"Services\/StaffService.php.html#75\">App\\Services\\StaffService::forceDelete<\/a>"],[0,2,"<a href=\"Services\/StaffService.php.html#83\">App\\Services\\StaffService::getStatistics<\/a>"],[0,5,"<a href=\"Services\/StaffService.php.html#117\">App\\Services\\StaffService::bulkAction<\/a>"],[0,10,"<a href=\"Services\/StaffService.php.html#130\">App\\Services\\StaffService::search<\/a>"],[0,3,"<a href=\"Services\/StaffService.php.html#168\">App\\Services\\StaffService::exportData<\/a>"],[0,1,"<a href=\"Services\/TaxService.php.html#12\">App\\Services\\TaxService::__construct<\/a>"],[0,1,"<a href=\"Services\/TaxService.php.html#16\">App\\Services\\TaxService::create<\/a>"],[0,1,"<a href=\"Services\/TaxService.php.html#21\">App\\Services\\TaxService::getAll<\/a>"],[0,1,"<a href=\"Services\/TaxService.php.html#26\">App\\Services\\TaxService::find<\/a>"],[0,1,"<a href=\"Services\/TaxService.php.html#31\">App\\Services\\TaxService::findWithTrashed<\/a>"],[0,1,"<a href=\"Services\/TaxService.php.html#36\">App\\Services\\TaxService::update<\/a>"],[0,1,"<a href=\"Services\/TaxService.php.html#41\">App\\Services\\TaxService::delete<\/a>"],[0,1,"<a href=\"Services\/TaxService.php.html#46\">App\\Services\\TaxService::restore<\/a>"],[0,1,"<a href=\"Services\/TaxService.php.html#51\">App\\Services\\TaxService::forceDelete<\/a>"]], 'Method Complexity'))
+      .transition()
+      .duration(500)
+      .call(chart);
+
+    nv.utils.windowResize(chart.update);
+
+    return chart;
+  });
+
+  function getComplexityData(data, label) {
+    var values = [];
+    $.each(data, function(key) {
+      var value = Math.round(data[key][0]*100) / 100;
+      values.push({
+        x: value,
+        y: data[key][1],
+        class: data[key][2],
+        size: 0.05,
+        shape: 'diamond'
+      });
+    });
+
+    return [
+      {
+        key: label,
+        values: values,
+        color: "#4572A7"
+      }
+    ];
+  }
+});
+  </script>
+ </body>
+</html>

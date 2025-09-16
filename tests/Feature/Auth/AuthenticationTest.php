@@ -1,6 +1,11 @@
 <?php
 
 use App\Models\User;
+use Database\Seeders\RoleSeeder;
+
+beforeEach(function () {
+    $this->artisan('db:seed', ['--class' => RoleSeeder::class]);
+});
 
 test('login screen can be rendered', function () {
     $response = $this->get('/login');
